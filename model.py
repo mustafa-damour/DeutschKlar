@@ -24,15 +24,35 @@ class Person(Base):
     password: Mapped[str] = mapped_column(String)
     joining_date: Mapped[str] = mapped_column(String)
     last_login: Mapped[str] = mapped_column(String)
-
+    
+    def __init__(self, first_name, last_name, handle, email, age, gender, phone_number, city, is_admin, password, joining_date, last_login):
+        self.first_name = first_name
+        self.last_name = last_name
+        self.handle = handle
+        self.email = email
+        self.age = age
+        self.gender = gender
+        self.phone_number = phone_number
+        self.city = city
+        self.is_admin = is_admin
+        self.password = password
+        self.joining_date = joining_date
+        self.last_login = last_login
 class User(Base):
     __tablename__ = "user_table"
 
-    id: Mapped[int] = mapped_column(Integer, primary_key=True)
+    id: Mapped[int] = mapped_column(ForeignKey("person_table.id"), primary_key=True)
     level: Mapped[str] = mapped_column(String)
     
-    group_id: Mapped[int] = mapped_column(ForeignKey("group_table.id"))
+    person: Mapped["Person"] = relationship("Person", backref="user")
+    group_id: Mapped[int] = mapped_column(ForeignKey("group_table.id"), nullable=True)
     group: Mapped["Group"] = relationship("Group", back_populates="members")
+    
+    def __init__(self, user_id, level, group=0):
+        self.id = user_id
+        self.level = level
+        self.group_id = group
+    
 
 class Moderator(Base):
     __tablename__ = "moderator_table"
@@ -58,6 +78,7 @@ class Group(Base):
     
     members: Mapped[List["User"]] = relationship("User", back_populates="group", cascade="all, delete-orphan")
     moderator: Mapped["Moderator"] = relationship("Moderator", back_populates="group", uselist=False)
+    
 class Email(Base):
     __tablename__ = "email_table"
     
