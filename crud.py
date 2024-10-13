@@ -79,15 +79,5 @@ def delete_group(group_id):
 
 
 
-# for user_obj in result_table_by_id(User, 'id', 3):
-#     print(user_obj.person.first_name, user_obj.person.last_name)
-
-# delete_group(1)
-
-
-# first_name = "Mustafa"
-# last_name = "Damour"
-# message = "Hello Mustafa Here"
-# email = "radf@sdfs.com"
-
-# create_email(first_name=first_name, last_name=last_name, email=email, message=message)
+for user_obj in result_table_by_id(User, 'id', 3):
+    print(user_obj.person.first_name, user_obj.person.last_name)
