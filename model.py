@@ -1,7 +1,9 @@
 from __future__ import annotations
 from typing import List
 
-from sqlalchemy import ForeignKey, Integer, String, Boolean
+from datetime import datetime
+
+from sqlalchemy import ForeignKey, Integer, String, Boolean, TIMESTAMP
 from sqlalchemy.orm import Mapped, mapped_column, DeclarativeBase, relationship
 
 
@@ -88,5 +90,12 @@ class Email(Base):
     last_name: Mapped[str] = mapped_column(String)
     email: Mapped[str] = mapped_column(String)
     message: Mapped[str] = mapped_column(String)
-    date: Mapped[str] = mapped_column(String)
+    date: Mapped[datetime] = mapped_column(TIMESTAMP, default=datetime.now())
+    
+    def __init__(self, first_name, last_name, email, message):
+        self.first_name = first_name
+        self.last_name = last_name
+        self.email = email
+        self.message = message
+        
 

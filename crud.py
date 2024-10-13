@@ -40,6 +40,11 @@ def create_group(*args, **kwargs):
     group = Group(*args, **kwargs)
     session.add(group)
     session.commit()
+    
+def create_email(*args, **kwargs):
+    email = Email(*args, **kwargs)
+    session.add(email)
+    session.commit()
 
 def change_group(Table:User|Moderator|Admin, old_group_id, new_group_id):
     select_stmt = select(Table).where(Table.group_id == old_group_id)
@@ -59,9 +64,14 @@ def result_table_by_id(Table:User|Moderator|Admin, id_name:str, id_value:str):
     
 
 def delete_group(group_id):
+    # changing group's moderator to default group
+    change_group(Moderator, old_group_id=group_id, new_group_id=0)
+    # changing group's member to default group
+    change_group(User, old_group_id=group_id, new_group_id=0)
     
-    pass
-    
+    stmt = delete(Group).where(Group.id==group_id)    
+    session.execute(stmt)
+    session.commit()
 
 # create_person("Albert", "Twain", '1', '1', 35, '1', '1', '1', True, '1', '1', '1')
 
@@ -69,5 +79,15 @@ def delete_group(group_id):
 
 
 
-for user_obj in result_table_by_id(User, 'id', 3):
-    print(user_obj.person.first_name, user_obj.person.last_name)
+# for user_obj in result_table_by_id(User, 'id', 3):
+#     print(user_obj.person.first_name, user_obj.person.last_name)
+
+# delete_group(1)
+
+
+first_name = "Mustafa"
+last_name = "Damour"
+message = "Hello Mustafa Here"
+email = "radf@sdfs.com"
+
+create_email(first_name=first_name, last_name=last_name, email=email, message=message)
