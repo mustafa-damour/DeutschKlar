@@ -79,5 +79,5 @@ def delete_group(group_id):
 
 
 
-for user_obj in result_table_by_id(User, 'id', 3):
-    print(user_obj.person.first_name, user_obj.person.last_name)
+# for user_obj in result_table_by_id(User, 'id', 3):
+#     print(user_obj.person.first_name, user_obj.person.last_name)
