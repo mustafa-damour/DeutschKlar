@@ -1,0 +1,135 @@
+
+
+.container {
+    margin: auto;
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+div {
+    display: flex;
+    width: 100vh;    
+    justify-content: center;
+    align-items: center;
+    height: 100hv;
+}
+
+.form-container {
+    height: 100hv;
+    margin: 20px;
+    margin-top: 40px;
+    padding: 16px;
+    box-shadow: rgba(0, 0, 0, 0.15) 0px 2px 8px;
+}
+
+form {
+    display: flexbox;
+    width: 100%;  
+    justify-content: center;
+    align-items: center;
+}
+
+input[type=text], input[type=password], input[type=number] {
+    width: 80%;
+    height: 30px;
+    font-size: 16px;
+    margin: 8px;
+}
+
+
+input[type=number] {
+    width: 40%;
+    height: 30px;
+    font-size: 16px;
+    margin: 8px;
+    margin-right: auto;
+}
+
+select {
+    width: 30%;
+    height: 30px;
+    font-size: 16px;
+    margin: 8px;
+    margin-right: auto;
+}
+
+input[type=submit] {
+    margin: 12px;
+    width: 7em;
+    height: 3em;
+    background-color: teal;
+    color: white;
+    border-radius: 8px;
+}
+
+header {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.logo {
+
+    scale: 50%;
+
+    /* flex: 1 1 10px;
+    object-fit:scale-down; */
+}
+
+h1 {
+        font-size: 35px;
+        font-family: monospace;
+        display: flex;
+        color: teal;
+        justify-content: center;
+        align-items: center;
+}
+
+label {
+    white-space: pre;
+}
+
+.space {
+    width: 30%;
+}
+
+.nav-button {
+    display: flex;
+    justify-content: center;
+    width: 5em;
+    height: 3em;
+    color: white;
+    background-color: teal;
+    border-radius: 8px;
+    align-items: center;
+    text-decoration: none;
+    box-shadow: rgba(0, 0, 0, 0.15) 0px 2px 8px;
+    margin-left: 8px;
+    margin-right: 8px;
+}
+
+nav {
+    display: flex;
+    align-items: start;
+}
+
+.nav-header {
+    background-color: lightgray;
+    border: #858585;
+    border-radius: 16px;
+}
+
+.dashboard {
+    margin-left: auto;
+    margin-right: auto;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    width: 60%;
+    border: black;
+    border-style:outset;
+    border-radius: 8px;
+}

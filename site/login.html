@@ -1,0 +1,35 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Login</title>
+    <script src="../static/script.js"></script>
+    <link rel="stylesheet" href="../static/style.css">
+</head>
+<body>
+    <nav>
+        <img class="logo" src="../static/logo.PNG">
+    </nav>
+    <h1>Login</h1>
+    <div class="container">
+        <div class="form-container">
+            <form id="loginForm" name="loginForm" action="/login" onsubmit="return validateForm()" method="post">
+                <div>
+                    <label for"handle"><b>@handle</b></label>
+                    <br>
+                    <input type="text" name="handle" placeholder="Enter your handle" required>
+                </div>
+                <div>
+                    <label for"password"><b>Password</b></label>
+                    <br>
+                    <input type="password" name="password" placeholder="Enter you passoword" required>
+                </div>
+    
+                <input type="submit" value="Submit">
+                
+            </form>
+        </div>
+    </div>
+</body>
+</html>

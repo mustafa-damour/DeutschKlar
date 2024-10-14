@@ -1,0 +1,73 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Registration</title>
+    <script src="`../static/script.js"></script>
+    <link rel="stylesheet" href="../static/style.css">
+</head>
+<body>
+    <header>
+        <img class="logo" src="../static/logo.PNG">
+    </header>
+    <h1>Registration</h1>
+    <div class="container">
+        <div class="form-container">
+            <form id="loginForm" name="loginForm" action="index.html" onsubmit="return validateForm()" method="post">
+                <div>
+                    <label for"fname"><b>First Name</b></label>
+                    <br>
+                    <input type="text" name="fname" placeholder="Enter your first name" required>
+                </div>
+                <div>
+                    <label for"lname"><b>Last Name</b></label>
+                    <br>
+                    <input type="text" name="lanme" placeholder="Enter your last name" required>
+                </div>
+                <div>
+                    <label for"handle"><b> @handle </b></label>
+                    <br>
+                    <input type="text" name="handle" placeholder="Enter your handle" required>
+                </div>
+                <div>
+                    <label for"email"><b> Email      </b></label>
+                    <br>
+                    <input type="text" name="email" placeholder="Enter your email, e.g. someone@example.com" required>
+                </div>
+                <div>
+                    <label for"password"><b>Password  </b></label>
+                    <br>
+                    <input type="password" name="password" placeholder="Enter you passoword" required>
+                </div>
+                <div>
+                    <label for"password"><b>Type again</b></label>
+                    <br>
+                    <input type="password" name="password" placeholder="Enter you passoword" required>
+                </div>
+                <div>
+                    <label for"age"><b>        Age        </b></label>
+                    <br>
+                    <input type="number" name="password" placeholder="Enter you passoword" required>
+                </div>
+                <div>
+                    <label for"age"><b>     Gender     </b></label>
+                    <br>
+                        <select name="gender" required>
+                            <option value="male">male</option>
+                            <option value="female">female</option>
+                            <option value="unknown">prefer not to say</option>
+                        </select>
+                </div>
+                <div>
+                    <label for"city"><b>  City      </b></label>
+                    <br>
+                    <input type="text" name="city" placeholder="Enter your city" required>
+                </div>
+                <input type="submit" value="Submit">
+                
+            </form>
+        </div>
+    </div>
+</body>
+</html>
