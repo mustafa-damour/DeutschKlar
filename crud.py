@@ -61,7 +61,12 @@ def result_table_by_id(Table:User|Moderator|Admin, id_name:str, id_value:str):
         stmt = select(Table).where(Table.id==id_value)
     result = session.execute(stmt)
     return result.scalars()
-    
+
+def get_person_by_handle(Table:User|Moderator|Admin, handle: str):
+
+    result = session.query(Person).join(Table).filter(Person.handle == handle)    
+    return result.first()
+
 
 def delete_group(group_id):
     # changing group's moderator to default group
@@ -72,6 +77,10 @@ def delete_group(group_id):
     stmt = delete(Group).where(Group.id==group_id)    
     session.execute(stmt)
     session.commit()
+    
+def get_user(user_id):
+    return  session.query(User).filter(User.id==user_id).first()
+
 
 # create_person("Albert", "Twain", '1', '1', 35, '1', '1', '1', True, '1', '1', '1')
 
@@ -80,4 +89,8 @@ def delete_group(group_id):
 
 
 # for user_obj in result_table_by_id(User, 'id', 3):
-#     print(user_obj.person.first_name, user_obj.person.last_name)
+# #     print(user_obj.person.first_name, user_obj.person.last_name)
+
+# person = get_password_by_handle(Table=User, handle="alberto")
+
+# print(person.last_name, person.password)

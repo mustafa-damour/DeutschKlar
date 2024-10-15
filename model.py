@@ -6,11 +6,13 @@ from datetime import datetime
 from sqlalchemy import ForeignKey, Integer, String, Boolean, TIMESTAMP
 from sqlalchemy.orm import Mapped, mapped_column, DeclarativeBase, relationship
 
+from flask_login import UserMixin
+
 
 class Base(DeclarativeBase):
     pass
 
-class Person(Base):
+class Person(UserMixin, Base):
     __tablename__ = "person_table"
 
     id: Mapped[int] = mapped_column(Integer, primary_key=True)
@@ -40,7 +42,7 @@ class Person(Base):
         self.password = password
         self.joining_date = joining_date
         self.last_login = last_login
-class User(Base):
+class User(UserMixin, Base):
     __tablename__ = "user_table"
 
     id: Mapped[int] = mapped_column(ForeignKey("person_table.id"), primary_key=True)
@@ -56,7 +58,7 @@ class User(Base):
         self.group_id = group
     
 
-class Moderator(Base):
+class Moderator(UserMixin, Base):
     __tablename__ = "moderator_table"
 
     id: Mapped[int] = mapped_column(ForeignKey("person_table.id"), primary_key=True)
@@ -65,7 +67,7 @@ class Moderator(Base):
     person: Mapped["Person"] = relationship("Person", backref="moderator")
     group: Mapped["Group"] = relationship("Group", back_populates="moderator")
 
-class Admin(Base):
+class Admin(UserMixin, Base):
     __tablename__ = "admin_table"
 
     id: Mapped[int] = mapped_column(ForeignKey("person_table.id"), primary_key=True)

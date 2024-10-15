@@ -1,19 +1,24 @@
 import flask
 from flask import request
-# import model as orm
-# import crud
+from model import User
+from crud import get_user
+import crud
+from flask_login import LoginManager, login_user, logout_user, login_required
+import secrets
 
-from enum import Enum
+secret_key = secrets.token_hex(16)
 
 
 app = flask.Flask("DeutschKlar")
 
+app. secret_key = secret_key
+login_manager = LoginManager()
+login_manager.init_app(app)
 
-### Creating an Enum class for case-by-case selection
-# class Person(Enum):
-#     USER=1
-#     MODERATOR=2
-#     ADMIN=3
+
+@login_manager.user_loader
+def load_user(user_id):
+    return get_user(user_id)
 
 
 def get_html(file):
@@ -30,16 +35,44 @@ def homepage():
 def about():
     return "about"
 
+# @app.route("/login", methods=['GET', 'POST'])
+# def login():
+#     if request.method=='POST':
+#         handle = request.form.get('handle')
+#         password = request.form.get('password')
+#         try:
+#             stored_password = crud.get_password_by_handle(Table=User, handle=handle).password
+#             if stored_password==password:
+#                 return app.redirect('/')
+#         except:
+#             return get_html('site/login')
+        
+#     else:
+#         return get_html('site/login')
+
+
 @app.route("/login", methods=['GET', 'POST'])
 def login():
     if request.method=='POST':
         handle = request.form.get('handle')
         password = request.form.get('password')
-        print(*zip(request.form.keys(), request.form.values()), sep='\n')
-        # print(f"the handle is {handle} and the passowrd is {password}")
-        return app.redirect('/')
+        user_id = crud.get_person_by_handle(Table=User, handle=handle).id
+        user:User = crud.get_user(user_id=user_id)
+        try:
+            stored_password = crud.get_person_by_handle(Table=User, handle=handle).password
+            if stored_password==password:    
+                login_user(user)
+                return 'HI'
+            else:
+                return get_html('site/home')
+        except Exception as e:
+            print(e)
+            return e.__repr__()
+        
     else:
         return get_html('site/login')
+
+
 
 @app.route("/logout")
 def logout():
