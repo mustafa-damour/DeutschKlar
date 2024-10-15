@@ -11,7 +11,7 @@ secret_key = secrets.token_hex(16)
 
 app = flask.Flask("DeutschKlar")
 
-app. secret_key = secret_key
+app.secret_key = secret_key
 login_manager = LoginManager()
 login_manager.init_app(app)
 
@@ -87,5 +87,6 @@ def groups():
     return "groups"
 
 @app.route("/message")
+@login_required
 def message():
     return "message"
