@@ -10,8 +10,10 @@ import datetime
 import secrets
 import random
 
-from faker import Faker
+from faker import Faker 
 fake = Faker()
+
+## The SSE using Redis is copied, just for learning. I would have changed it, but I abondoned it for SSE without Redis
 
 secret_key = secrets.token_hex(16)
 
