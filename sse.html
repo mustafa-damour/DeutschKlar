@@ -1,0 +1,23 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>SSE TEST</title>
+</head>
+<body>
+    
+    <h1 id="customor">No data arrived from server</h1>
+
+    <script>
+        const element = document.getElementById("customor");
+        const source = new EventSource("http://127.0.0.1:5000/events");
+        source.addEventListener("customer", sseHandler);
+        
+        function sseHandler(event){
+            let data = JSON.parse(event.data);
+            element.innerHTML = data;
+        }
+    </script>
+</body>
+</html>

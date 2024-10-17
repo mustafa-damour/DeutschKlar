@@ -1,21 +1,45 @@
 import flask,jsonify
 from flask import request
+from flask_sse import sse
 from model import User
 from crud import get_user
 import crud
 from flask_login import LoginManager, login_user, logout_user, login_required
+from apscheduler.schedulers.background import BackgroundScheduler
 import datetime
 import secrets
-# import random
+import random
+
+from faker import Faker
+fake = Faker()
 
 secret_key = secrets.token_hex(16)
 
 
 app = flask.Flask("DeutschKlar")
 
+app.config["REDIS_URL"]="redis://172.17.0.2"
+
+app.register_blueprint(sse, url_prefix='/events')
+
+
 app.secret_key = secret_key
 login_manager = LoginManager()
 login_manager.init_app(app)
+
+
+## SSE
+def get_data():
+    data = list()
+    data.append({'name': fake.name()})
+    return data
+
+def server_side_event():
+    with app.app_context():
+        sse.publish(get_data(), type='customer')
+        print("New Customer Time: ",datetime.datetime.now())
+
+
 
 
 
@@ -93,3 +117,7 @@ def groups():
 @login_required
 def message():
     return "message"
+
+sched = BackgroundScheduler(daemon=True)
+sched.add_job(server_side_event,'interval',seconds=10, id ="myJob")
+sched.start()
