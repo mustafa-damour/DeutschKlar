@@ -14,4 +14,10 @@ function validateForm() {
 }
 
 
-container.addEventListener('')
+
+
+
+
+function injectUserCard(id, data) {
+  
+}
