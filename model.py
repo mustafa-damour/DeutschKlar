@@ -25,6 +25,8 @@ class Person(UserMixin, Base):
     phone_number: Mapped[str] = mapped_column(String)
     city: Mapped[str] = mapped_column(String)
     is_admin: Mapped[bool] = mapped_column(Boolean)
+    is_admin: Mapped[bool] = mapped_column(Boolean, default=False)
+    # is_moderator: Mapped[bool] = mapped_column(Boolean, default=False)
     password: Mapped[str] = mapped_column(String)
     joining_date: Mapped[str] = mapped_column(String)
     last_login: Mapped[str] = mapped_column(String)
