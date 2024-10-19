@@ -92,9 +92,15 @@ def logout():
 def group():
     return "group"
 
+@app.route("/register", methods=['GET'])
+def register():
+    return get_html('site/register')
+
 @app.route("/create", methods=['POST'])
 def create():
-    return "sdf"
+    data = request.form.to_dict()
+
+    return str(data)
 
 @app.route("/message")
 @login_required
