@@ -1,11 +1,14 @@
 import flask
 from flask import request
+from flask_mail import Mail,Message
 from model import User
 from crud import get_user
 import crud
 from flask_login import LoginManager, login_user, logout_user, login_required, current_user
 import datetime
 import secrets
+# import smtplib
+import asyncio
 # import random
 
 # secret_key = secrets.token_hex(16)
@@ -20,6 +23,18 @@ app.secret_key = secret_key
 login_manager = LoginManager()
 login_manager.init_app(app)
 
+
+app.config.update(
+  DEBUG=True,
+  #EMAIL SETTINGS
+  MAIL_SERVER='smtp.gmail.com',
+  MAIL_PORT=465,
+  MAIL_USE_SSL=True,
+  MAIL_USERNAME = 'DeutschKlar.rc',
+  MAIL_PASSWORD = 'vfjy edir ovze eptu'
+)
+
+mail = Mail(app)
 
 
 @login_manager.user_loader
@@ -41,20 +56,6 @@ def homepage():
 def about():
     return "about"
 
-# @app.route("/login", methods=['GET', 'POST'])
-# def login():
-#     if request.method=='POST':
-#         handle = request.form.get('handle')
-#         password = request.form.get('password')
-#         try:
-#             stored_password = crud.get_password_by_handle(Table=User, handle=handle).password
-#             if stored_password==password:
-#                 return app.redirect('/')
-#         except:
-#             return get_html('site/login')
-        
-#     else:
-#         return get_html('site/login')
 
 
 @app.route("/login", methods=['GET', 'POST'])
@@ -86,7 +87,8 @@ def login():
 
 @app.route("/logout")
 def logout():
-    return "logout"
+    logout_user()
+    return app.redirect('/login')
 
 @app.route("/group")
 def group():
@@ -111,3 +113,25 @@ def message():
 @login_required
 def user_dashboard():
     return get_html('site/user/dashboard')
+
+
+
+def email(title: str, body:str, html: str, recipients: list[str]):
+  with app.app_context():
+    try:
+        msg = Message(title, sender="deutschkalr.rc@gmail.com", recipients=recipients)
+        msg.body = body
+        if html:        
+            msg.html = html
+        if title == 'Confirmation of Registeration':
+            with app.open_resource("DKmanifesto.pdf") as fp:
+                msg.attach("DKmanifesto.pdf", "application/pdf", fp.read())
+        
+        mail.send(msg)
+        return 'Mail Send Successfully'
+        
+    except Exception as e:
+        print('***** '+str(e))
+    return ""
+
+# print(email("Hello from Flask server", "sadflajs", '',recipients=['damour91919@gmail.com']))
