@@ -70,7 +70,7 @@ def login():
         try:
             stored_password = crud.get_person_by_handle(Table=User, handle=handle).password
             if stored_password==password:    
-                login_user(user)
+                login_user(user, remember=True)
                 return app.redirect('/dashboard')
             else:
                 return get_html('site/home')
@@ -92,9 +92,9 @@ def logout():
 def group():
     return "group"
 
-@app.route("/groups")
-def groups():
-    return "groups"
+@app.route("/create", methods=['POST'])
+def create():
+    return "sdf"
 
 @app.route("/message")
 @login_required
@@ -104,5 +104,4 @@ def message():
 @app.route("/dashboard")
 @login_required
 def user_dashboard():
-    print('[][][]')
     return get_html('site/user/dashboard')

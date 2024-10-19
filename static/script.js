@@ -56,4 +56,4 @@ function refresh(){
   console.log("User card is allegedly inject into the dashboard");
 }
 
-dashboard.onload = function() {refresh();}
+window.onload = function() {refresh();}
