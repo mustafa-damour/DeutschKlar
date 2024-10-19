@@ -4,7 +4,7 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Registration</title>
-    <script src="`../static/script.js"></script>
+    <script src="../static/script.js"></script>
     <link rel="stylesheet" href="../static/style.css">
 </head>
 <body>
@@ -14,7 +14,7 @@
     <h1>Registration</h1>
     <div class="container">
         <div class="form-container">
-            <form id="loginForm" name="loginForm" action="/create" onsubmit="return validateForm()" method="post">
+            <form id="RegForm" name="RegForm" action="/create" onsubmit="return validateRegForm()" method="post">
                 <div>
                     <label for"fname"><b>First Name</b></label>
                     <br>
@@ -43,15 +43,15 @@
                 <div>
                     <label for"password"><b>Type again</b></label>
                     <br>
-                    <input type="password" name="password" placeholder="Enter you passoword" required>
+                    <input type="password" name="confirm_password" placeholder="Enter you passoword again" required>
                 </div>
                 <div>
                     <label for"age"><b>        Age        </b></label>
                     <br>
-                    <input type="number" name="password" placeholder="Enter you passoword" required>
+                    <input type="number" name="password" placeholder="Enter you passoword" equal required>
                 </div>
                 <div>
-                    <label for"age"><b>     Gender     </b></label>
+                    <label for"gender"><b>     Gender     </b></label>
                     <br>
                         <select name="gender" required>
                             <option value="male">male</option>
@@ -60,7 +60,20 @@
                         </select>
                 </div>
                 <div>
-                    <label for"city"><b>  City      </b></label>
+                    <label for"level"><b> Language Level </b></label>
+                    <br>
+                        <select name="level" required>
+                            <option value="A0">A0</option>
+                            <option value="A1">A1</option>
+                            <option value="A2">A2</option>
+                            <option value="B1">B1</option>
+                            <option value="B2">B2</option>
+                            <option value="C1">C1</option>
+                            <option value="C2">C2</option>
+                        </select>
+                </div>
+                <div>
+                    <label for"city"><b>    City    </b></label>
                     <br>
                     <input type="text" name="city" placeholder="Enter your city" required>
                 </div>

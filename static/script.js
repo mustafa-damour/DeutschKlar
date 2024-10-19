@@ -1,5 +1,6 @@
+log = console.log;
 
-function validateForm() {
+function validateLoginForm() {
     let handle = document.forms["loginForm"]["handle"].value;
     let password = document.forms["loginForm"]["password"].value;
 
@@ -13,6 +14,21 @@ function validateForm() {
 }
 
 
+function validateRegForm() {
+  let fname = document.forms["RegForm"]["fname"].value;
+  let lname = document.forms["RegForm"]["lname"].value;
+  let handle = document.forms["RegForm"]["handle"].value;
+  let email = document.forms["RegForm"]["email"].value;
+  let password = document.forms["RegForm"]["password"].value;
+  let confirm_password = document.forms["RegForm"]["confirm_password"].value;
+  let age = document.forms["RegForm"]["age"].value;
+  let gender = document.forms["RegForm"]["gender"].value;
+  let level = document.forms["RegForm"]["level"].value;
+  let city =  document.forms["RegForm"]["city"];
+
+  log(level);
+
+}
 
 
 const data = {
