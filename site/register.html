@@ -48,7 +48,7 @@
                 <div>
                     <label for"age"><b>        Age        </b></label>
                     <br>
-                    <input type="number" name="age" placeholder="Enter you passoword" equal required>
+                    <input type="number" name="age" min=18 max=80 placeholder="Enter you age" equal required>
                 </div>
                 <div>
                     <label for"gender"><b>     Gender     </b></label>
@@ -73,9 +73,20 @@
                         </select>
                 </div>
                 <div>
-                    <label for"city"><b>    City    </b></label>
+                    <label for"city"><b>    Nearest City    </b></label>
                     <br>
-                    <input type="text" name="city" placeholder="Enter your city" required>
+                    <select name="city" required>
+                        <option value="Cairo">Cairo</option>
+                        <option value="Alexandria">Alexandria</option>
+                        <option value="Sinai">Sinai</option>
+                        <option value="Luxor">Luxor</option>
+                        <option value="Aswan">Aswan</option>
+                        <option value="Sohag">Sohag</option>
+                        <option value="Manofia">Manofia</option>
+                        <option value="Asyut">Asyut</option>
+                        <option value="Ismailia">Ismailia</option>
+                    </select>
+                    
                 </div>
                 <input type="submit" value="Submit">
                 

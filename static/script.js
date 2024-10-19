@@ -1,18 +1,17 @@
 log = console.log;
 
 function validateLoginForm() {
-    let handle = document.forms["loginForm"]["handle"].value;
-    let password = document.forms["loginForm"]["password"].value;
+  let handle = document.forms["loginForm"]["handle"].value;
+  let password = document.forms["loginForm"]["password"].value;
 
-    if (handle.length <= 3) {
-      alert("Name must be more than 3 letters.");
-      return false;
-    } else if (password.length < 8) {
-        alert("Name must be at least 8 chracters/numbers.");
-        return false;
-      }   
+  if (handle.length <= 3) {
+    alert("Name must be more than 3 letters.");
+    return false;
+  } else if (password.length < 8) {
+    alert("Name must be at least 8 chracters/numbers.");
+    return false;
+  }
 }
-
 
 function validateRegForm() {
   let fname = document.forms["RegForm"]["fname"].value;
@@ -21,15 +20,31 @@ function validateRegForm() {
   let email = document.forms["RegForm"]["email"].value;
   let password = document.forms["RegForm"]["password"].value;
   let confirm_password = document.forms["RegForm"]["confirm_password"].value;
-  let age = document.forms["RegForm"]["age"].value;
-  let gender = document.forms["RegForm"]["gender"].value;
-  let level = document.forms["RegForm"]["level"].value;
-  let city =  document.forms["RegForm"]["city"];
+  // let age = document.forms["RegForm"]["age"].value;
+  // let gender = document.forms["RegForm"]["gender"].value;
+  // let level = document.forms["RegForm"]["level"].value;
+  // let city = document.forms["RegForm"]["city"];
 
-  log(level);
+  if (fname.length < 3 || lname.length < 3) {
+    alert("name must be at least 3 letters.");
+    return false;
+  }
 
+  if (handle.length < 4) {
+    alert("handle must be at least 4 letters.");
+    return false;
+  }
+
+  if (password !== confirm_password) {
+    alert("The password has to be the same.");
+    return false;
+  }
+
+  if (!/^\w+([\.-]?\w+)*@\w+([\.-]?\w+)*(\.\w{2,3})+$/.test(email)) {
+    alert("Please enter a valid email!  ");
+    return false;
+  }
 }
-
 
 const data = {
   uid: 238746,
@@ -37,8 +52,7 @@ const data = {
   role: "User",
   handle: "marco",
   name: "Mark Twain",
-  email: "marco123@aio.jp"
-
+  email: "marco123@aio.jp",
 };
 
 function injectUserCard() {
@@ -66,10 +80,12 @@ function injectUserCard() {
   dashboard.appendChild(cardContainer);
 }
 
-function refresh(){
+function refresh() {
   const dashboard = document.getElementById("dashboard");
   injectUserCard();
   console.log("User card is allegedly inject into the dashboard");
 }
 
-window.onload = function() {refresh();}
+window.onload = function () {
+  refresh();
+};
