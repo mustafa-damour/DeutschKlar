@@ -11,10 +11,10 @@ import secrets
 import asyncio
 # import random
 
-# secret_key = secrets.token_hex(16)
+secret_key = secrets.token_hex(16)
 
 
-secret_key = '2342342dfgsdfg'
+# secret_key = '2342342dfgsdfg'
 
 
 app = flask.Flask("DeutschKlar")
@@ -189,4 +189,4 @@ def email(title: str, body:str, html: str, recipients: list[str]):
         print('***** '+str(e))
     return ""
 
-print(email("Confirmation of Registeration", "", reg_html,recipients=['damour91919@gmail.com']))
+# print(email("Confirmation of Registeration", "", reg_html,recipients=['damour91919@gmail.com']))
