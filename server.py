@@ -43,14 +43,15 @@ def load_user(user_id):
 
 
 def get_html(file):
-    f = open(f'{file}.html')
+    f = open(f'{file}.html', encoding="utf8")
     content = f.read()
     return content
 
 @app.route("/")
 @app.route("/home")
 def homepage():
-    return get_html('site/index')
+    content = get_html('site/index')
+    return content
 
 @app.route("/about")
 def about():
@@ -72,6 +73,7 @@ def login():
             stored_password = crud.get_person_by_handle(Table=User, handle=handle).password
             if stored_password==password:    
                 login_user(user, remember=True)
+                print(current_user)
                 return app.redirect('/dashboard')
             else:
                 return get_html('site/home')
@@ -115,6 +117,59 @@ def user_dashboard():
     return get_html('site/user/dashboard')
 
 
+reg_html = """
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Confirmation of Registeration</title>
+</head>
+<body>
+    
+<style>
+    .card-container {
+      display:flex;
+      justify-content: center;
+      align-items: center;
+      padding: 12px;
+      width:100%;
+      height:100%;
+    }
+    
+    .card {
+      height: 50%;
+      width: 50%;
+      background-color:light;
+      padding: 16px;
+      box-shadow: rgba(0, 0, 0, 0.15) 0px 2px 8px;
+    
+    }
+    
+    h1 {
+      font-family: "Helvetica";
+      font-weight: bold;
+      color: darkred;
+    }
+    
+    p {
+     font-size: 24px;
+     font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+    }
+    </style>
+     
+    <div class="card-container">
+      <div class="card">
+        <h1><em>Danke!</em> Für deine Abmeldung bei DeutschKlar</h1>
+        <p>Thank you for registering with DeutschKlar, your journey starts now</p>
+        <p>We attached a PDF document containing all the infomation you might want to know about DeutschKlar, and how to get the most out of it.</p>
+        <h1>Viel Spaß</h1>
+      </div>
+    </div>
+    
+</body>
+</html>
+"""
 
 def email(title: str, body:str, html: str, recipients: list[str]):
   with app.app_context():
@@ -124,8 +179,8 @@ def email(title: str, body:str, html: str, recipients: list[str]):
         if html:        
             msg.html = html
         if title == 'Confirmation of Registeration':
-            with app.open_resource("DKmanifesto.pdf") as fp:
-                msg.attach("DKmanifesto.pdf", "application/pdf", fp.read())
+            with app.open_resource("Brochure.pdf") as fp:
+                msg.attach("Brochure.pdf", "application/pdf", fp.read())
         
         mail.send(msg)
         return 'Mail Send Successfully'
@@ -134,4 +189,4 @@ def email(title: str, body:str, html: str, recipients: list[str]):
         print('***** '+str(e))
     return ""
 
-# print(email("Hello from Flask server", "sadflajs", '',recipients=['damour91919@gmail.com']))
+print(email("Confirmation of Registeration", "", reg_html,recipients=['damour91919@gmail.com']))
