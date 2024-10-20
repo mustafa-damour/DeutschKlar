@@ -44,6 +44,7 @@ function validateRegForm() {
     alert("Please enter a valid email!  ");
     return false;
   }
+
 }
 
 const data = {

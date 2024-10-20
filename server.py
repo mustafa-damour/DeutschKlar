@@ -1,11 +1,11 @@
 import flask
 from flask import request
 from flask_mail import Mail,Message
-from model import User
-from crud import get_user
+from model import User, Person
+from crud import get_user, create_person, create_user
 import crud
 from flask_login import LoginManager, login_user, logout_user, login_required, current_user
-import datetime
+from datetime import datetime as dt
 import secrets
 # import smtplib
 import asyncio
@@ -103,7 +103,23 @@ def register():
 @app.route("/create", methods=['POST'])
 def create():
     data = request.form.to_dict()
-
+    person = Person(
+        first_name=data['fname'],
+        last_name=data['lname'],
+        handle=data['handle'],
+        email=data['email'],
+        age=data['age'],
+        gender=data['gender'],
+        phone_number=data['phone_number'],
+        city=data['city'],
+        is_admin=False,
+        password=data['password'],
+        joining_date=str(dt.now().strftime("%d/%m/%Y %H:%M:%S")),
+        last_login=''
+    )
+    create_person(person)
+    create_user(person=person, level=data['level'])
+    # print(person.phone_number)
     return str(data)
 
 @app.route("/message")

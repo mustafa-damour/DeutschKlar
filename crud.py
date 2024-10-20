@@ -10,14 +10,19 @@ Session = sessionmaker(bind=engine)
 session = Session()
 
 # first_name, last_name, handle, email, age, gender, phone_number, city, is_admin, password, joining_date, last_login
-def create_person(*args, **kwargs):
-    person = Person(*args)
+def create_person(person):
     session.add(person)
     session.commit()
 
+# # first_name, last_name, handle, email, age, gender, phone_number, city, is_admin, password, joining_date, last_login
+# def create_person(*args, **kwargs):
+#     person = Person(*args)
+#     session.add(person)
+#     session.commit()
 
-def create_user(*args, **kwargs):
-    user = User(*args, **kwargs)
+
+def create_user(person:Person, level:str):
+    user = User(user_id=person.id, level=level)
     session.add(user)
     session.commit()
 
