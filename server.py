@@ -7,23 +7,23 @@ import crud
 from flask_login import LoginManager, login_user, logout_user, login_required, current_user
 from datetime import datetime as dt
 import secrets
-# import smtplib
-import asyncio
-# import random
 
+## Generating secret key for the server, a new one is generated each time the server is restarted, and users are
+## automatically logged-out
 secret_key = secrets.token_hex(16)
 
-
-# secret_key = '2342342dfgsdfg'
-
-
+## Creating Flask app instance
 app = flask.Flask("DeutschKlar")
 
+# setting secret_key for the server
 app.secret_key = secret_key
+
+# Creating an instance of the LoginManager, and connecting it to the app
 login_manager = LoginManager()
 login_manager.init_app(app)
 
 
+# Basic configs to allow for Email service
 app.config.update(
   DEBUG=True,
   #EMAIL SETTINGS
@@ -36,7 +36,7 @@ app.config.update(
 
 mail = Mail(app)
 
-
+# Email loader to allow for fetching user form DB
 @login_manager.user_loader
 def load_user(user_id):
     return get_user(user_id)
@@ -55,7 +55,8 @@ def homepage():
 
 @app.route("/about")
 def about():
-    return "about"
+    content = get_html('site/index')
+    return content
 
 
 
@@ -76,7 +77,7 @@ def login():
                 print(current_user)
                 return app.redirect('/dashboard')
             else:
-                return get_html('site/home')
+                return get_html('site/login')
         except Exception as e:
             print(e)
             return e.__repr__()
@@ -120,7 +121,8 @@ def create():
     create_person(person)
     create_user(person=person, level=data['level'])
     # print(person.phone_number)
-    return str(data)
+    email(title='Confirmation of Registeration', body='', html=reg_html, recipients=[data['email']])
+    return app.redirect('/login')
 
 @app.route("/message")
 @login_required

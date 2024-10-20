@@ -31,8 +31,8 @@ def delete_user(user_id):
     session.execute(stmt)
     session.commit()
 
-def create_moderator(*args, **kwargs):
-    moderator = Moderator(*args, **kwargs)
+def create_moderator(person:Person, group_id:int=0):
+    moderator = Moderator(moderator_id=person.id, group_id=group_id)
     session.add(moderator)
     session.commit()
 
@@ -41,8 +41,12 @@ def delete_moderator(moderator_id):
     session.execute(stmt)
     session.commit()
 
-def create_group(*args, **kwargs):
-    group = Group(*args, **kwargs)
+def create_group(moderator: Moderator|None=None, members:list[User]|None=None):
+    group = Group()
+    if moderator:
+        group.moderator=moderator
+    if members:
+        group.members=members
     session.add(group)
     session.commit()
     
@@ -86,6 +90,8 @@ def delete_group(group_id):
 def get_user(user_id):
     return  session.query(User).filter(User.id==user_id).first()
 
+def get_group(group_id):
+    return  session.query(Group).filter(Group.id==group_id).first()
 
 # create_person("Albert", "Twain", '1', '1', 35, '1', '1', '1', True, '1', '1', '1')
 
@@ -99,3 +105,12 @@ def get_user(user_id):
 # person = get_password_by_handle(Table=User, handle="alberto")
 
 # print(person.last_name, person.password)
+
+# some_user=get_user(user_id=1)
+
+
+# create_group(members=[some_user])
+
+some_group = get_group(group_id=8)
+
+print(some_group.members[0].person.first_name, some_group.members[0].person.last_name)

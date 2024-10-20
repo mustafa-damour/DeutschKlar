@@ -68,6 +68,10 @@ class Moderator(UserMixin, Base):
     
     person: Mapped["Person"] = relationship("Person", backref="moderator")
     group: Mapped["Group"] = relationship("Group", back_populates="moderator")
+    
+    def __init__(self, moderator_id, group_id=0):
+        self.id = moderator_id
+        self.group_id = group
 
 class Admin(UserMixin, Base):
     __tablename__ = "admin_table"
@@ -101,5 +105,3 @@ class Email(Base):
         self.last_name = last_name
         self.email = email
         self.message = message
-        
-
