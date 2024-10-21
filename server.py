@@ -2,7 +2,7 @@ import flask
 from flask import request
 from flask_mail import Mail,Message
 from model import User, Person
-from crud import get_user, create_person, create_user
+from crud import get_user, create_person, create_user, match_user
 import crud
 from flask_login import LoginManager, login_user, logout_user, login_required, current_user
 from datetime import datetime as dt
@@ -120,6 +120,9 @@ def create():
     )
     create_person(person)
     create_user(person=person, level=data['level'])
+    user = get_user(person.id)
+    match_user(user=user)
+    
     # print(person.phone_number)
     email(title='Confirmation of Registeration', body='', html=reg_html, recipients=[data['email']])
     return app.redirect('/login')

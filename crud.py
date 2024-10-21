@@ -2,6 +2,8 @@ from model import Base, Person, User, Moderator, Admin, Group, Email
 from sqlalchemy import create_engine, select, update, delete
 from sqlalchemy.orm import sessionmaker
 
+from logger import Logger
+
 # library to get fake users/moderators
 from faker import Faker
 fake=Faker("de_DE")
@@ -145,12 +147,11 @@ def generate_cities_moderators(cities:list[str]):
             joining_date=fake.date_this_decade(),
             last_login=fake.date_this_month()
         )
-        person_id = person.id
         create_person(person=person)
         city_id=get_city_id(city=city)
         city_group = Group(id=city_id)
         create_moderator(person=person, group_id=city_id)
-        city_group.set_moderator(get_moderator(moderator_id=person_id))
+        city_group.set_moderator(get_moderator(moderator_id=person.id))
         create_group(group=city_group)
         
 def generate_cities_persons(role:Person|User|Moderator, cities:list[str]=[]):
@@ -170,10 +171,9 @@ def generate_cities_persons(role:Person|User|Moderator, cities:list[str]=[]):
             last_login=fake.date_this_month()
         )
         
-        person_id = person.id
         create_person(person=person)
         city_id=get_city_id(city=city)
-        print(f">>>>>>>>>>>>>> City ID = {city_id}")
+        print(f">>>>>>>>>>>>>> Role = {role.__tablename__}, City ID = {city_id}")
         try:
             city_group = get_group(group_id=city_id)
         except:
@@ -182,7 +182,6 @@ def generate_cities_persons(role:Person|User|Moderator, cities:list[str]=[]):
         city_group = get_group(group_id=city_id)
         if role.__tablename__=="user_table":
             create_user(person=person, level=fake.random_element(LEVELS))
-            print('****'*5)
             new_user = get_user(user_id=person.id)
             
             city_group = get_group(group_id=city_id)
@@ -204,7 +203,7 @@ def generate_cities_persons(role:Person|User|Moderator, cities:list[str]=[]):
         elif role.__tablename__=="moderator_table":
             city_group = get_group(group_id=city_id)
             create_moderator(person=person, group_id=city_id)
-            new_moderator = get_moderator(moderator_id=person_id)
+            new_moderator = get_moderator(moderator_id=person.id)
             city_group.set_moderator(new_moderator)
             new_moderator.group_id=city_id
             session.commit()
@@ -215,14 +214,25 @@ def initialize_groups():
         group = Group(i)
         create_group(group=group)
 
-initialize_groups()
+# initialize_groups()
 
-for i in range(3):
-    generate_cities_persons(role=User, cities=CITIES)
+# generate_cities_persons(role=Moderator, cities=CITIES)
 
-      
-generate_cities_persons(role=Moderator, cities=CITIES)
-
+# for i in range(3):
+#     generate_cities_persons(role=User, cities=CITIES)
 
 
-# print(group.get_moderator().person.first_name)
+
+def match_user(user: User):
+    user_city = user.person.city
+    user.group_id = get_city_id(user_city)
+    city_group = get_group(user.group_id)
+    city_group.members.append(user)
+    session.commit()
+    
+
+
+
+user = get_user(user_id=20)
+
+print(user.as_dict())

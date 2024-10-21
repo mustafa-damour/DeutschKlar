@@ -30,3 +30,16 @@ class Logger:
         last_n_reversed.reverse()
         last_n = last_n_reversed
         return '\n'.join(last_n)
+    
+    def clear_logs(self):
+        f = open(self.log_path, 'w')
+        f.write("")
+        f.close()
+        
+    
+logger = Logger()
+
+logger.log("sfasdf")
+logger.log('sdfasdfafafff')
+
+logger.clear_logs()

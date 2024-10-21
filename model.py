@@ -44,6 +44,10 @@ class Person(UserMixin, Base):
         self.password = password
         self.joining_date = joining_date
         self.last_login = last_login
+        
+    def as_dict(self):
+        return {col.name: getattr(self, col.name) for col in self.__table__.columns}
+    
 class User(UserMixin, Base):
     __tablename__ = "user_table"
 
@@ -59,6 +63,8 @@ class User(UserMixin, Base):
         self.level = level
         self.group_id = group
     
+    def as_dict(self):
+        return {**self.person.as_dict(), **{col.name: getattr(self, col.name) for col in self.__table__.columns}}
 
 class Moderator(UserMixin, Base):
     __tablename__ = "moderator_table"
