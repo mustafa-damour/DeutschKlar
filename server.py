@@ -132,65 +132,34 @@ def create():
 def message():
     return "message"
 
-@app.route("/dashboard")
+@app.route("/dashboard", methods=['GET'])
 @login_required
 def user_dashboard():
     return get_html('site/user/dashboard')
 
+@app.route("/cards", methods=['GET'])
+@login_required
+def cards():
+    with app.app_context():
+        user_id = current_user.id
+        user = get_user(user_id=user_id)
+        user_group = user.group
+        moderator = user_group.moderator
+        members=user_group.members
+    
+        json_data = {}
+        moderator_json={'moderator':moderator.as_dict()}
 
-reg_html = """
-<!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Confirmation of Registeration</title>
-</head>
-<body>
-    
-<style>
-    .card-container {
-      display:flex;
-      justify-content: center;
-      align-items: center;
-      padding: 12px;
-      width:100%;
-      height:100%;
-    }
-    
-    .card {
-      height: 50%;
-      width: 50%;
-      background-color:light;
-      padding: 16px;
-      box-shadow: rgba(0, 0, 0, 0.15) 0px 2px 8px;
-    
-    }
-    
-    h1 {
-      font-family: "Helvetica";
-      font-weight: bold;
-      color: darkred;
-    }
-    
-    p {
-     font-size: 24px;
-     font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
-    }
-    </style>
-     
-    <div class="card-container">
-      <div class="card">
-        <h1><em>Danke!</em> Für deine Abmeldung bei DeutschKlar</h1>
-        <p>Thank you for registering with DeutschKlar, your journey starts now</p>
-        <p>We attached a PDF document containing all the infomation you might want to know about DeutschKlar, and how to get the most out of it.</p>
-        <h1>Viel Spaß</h1>
-      </div>
-    </div>
-    
-</body>
-</html>
-"""
+        members_json = {}
+
+        for member in members:
+            members_json[member.person.handle]=member.as_dict()
+        
+        json_data = {**moderator_json, **members_json}
+
+        return json_data
+
+reg_html = get_html('email')
 
 def email(title: str, body:str, html: str, recipients: list[str]):
   with app.app_context():
@@ -207,7 +176,7 @@ def email(title: str, body:str, html: str, recipients: list[str]):
         return 'Mail Send Successfully'
         
     except Exception as e:
-        print('***** '+str(e))
+        print(str(e))
     return ""
 
 # print(email("Confirmation of Registeration", "", reg_html,recipients=['damour91919@gmail.com']))

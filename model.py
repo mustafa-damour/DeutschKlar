@@ -79,6 +79,8 @@ class Moderator(UserMixin, Base):
         self.id = moderator_id
         self.group_id = group_id
 
+    def as_dict(self):
+        return {**self.person.as_dict(), **{col.name: getattr(self, col.name) for col in self.__table__.columns}}
 class Admin(UserMixin, Base):
     __tablename__ = "admin_table"
 
