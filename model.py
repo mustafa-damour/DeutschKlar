@@ -71,7 +71,7 @@ class Moderator(UserMixin, Base):
     
     def __init__(self, moderator_id, group_id=0):
         self.id = moderator_id
-        self.group_id = group
+        self.group_id = group_id
 
 class Admin(UserMixin, Base):
     __tablename__ = "admin_table"
@@ -88,6 +88,21 @@ class Group(Base):
     
     members: Mapped[List["User"]] = relationship("User", back_populates="group", cascade="all, delete-orphan")
     moderator: Mapped["Moderator"] = relationship("Moderator", back_populates="group", uselist=False)
+    
+    def __init__(self, id):
+        self.id = id
+
+    def get_moderator(self):
+        return self.moderator
+    
+    def set_moderator(self, moderator:Moderator):
+        self.moderator=moderator
+    
+    def get_members(self):
+        return self.members
+    
+    def set_members(self, members=list[User]):
+        self.members=members
     
 class Email(Base):
     __tablename__ = "email_table"

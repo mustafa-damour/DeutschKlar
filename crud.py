@@ -2,8 +2,12 @@ from model import Base, Person, User, Moderator, Admin, Group, Email
 from sqlalchemy import create_engine, select, update, delete
 from sqlalchemy.orm import sessionmaker
 
+# library to get fake users/moderators
+from faker import Faker
+fake=Faker("de_DE")
 
-engine = create_engine("sqlite:///dk.db", echo=True)
+
+engine = create_engine("sqlite:///dk.db", echo=False)
 Base.metadata.create_all(bind=engine)
 
 Session = sessionmaker(bind=engine)
@@ -41,14 +45,20 @@ def delete_moderator(moderator_id):
     session.execute(stmt)
     session.commit()
 
-def create_group(moderator: Moderator|None=None, members:list[User]|None=None):
-    group = Group()
-    if moderator:
-        group.moderator=moderator
-    if members:
-        group.members=members
+### Deprecated
+# def create_group(moderator: Moderator|None=None, members:list[User]|None=None):
+#     group = Group()
+#     if moderator:
+#         group.moderator=moderator
+#     if members:
+#         group.members=members
+#     session.add(group)
+#     session.commit()
+    
+def create_group(group:Group):
     session.add(group)
     session.commit()
+
     
 def create_email(*args, **kwargs):
     email = Email(*args, **kwargs)
@@ -93,24 +103,126 @@ def get_user(user_id):
 def get_group(group_id):
     return  session.query(Group).filter(Group.id==group_id).first()
 
-# create_person("Albert", "Twain", '1', '1', 35, '1', '1', '1', True, '1', '1', '1')
+def get_moderator(moderator_id):
+    return  session.query(Moderator).filter(Moderator.id==moderator_id).first()
 
-# stmt = select(Person).order_by(Person.id.desc())
+def get_group_moderator(group_id):
+    return  session.query(Moderator).filter(Moderator.group_id==group_id).first()
 
+def get_group_members(group_id):
+    return  session.query(User).filter(User.group_id==group_id).all()
 
-
-# for user_obj in result_table_by_id(User, 'id', 3):
-# #     print(user_obj.person.first_name, user_obj.person.last_name)
-
-# person = get_password_by_handle(Table=User, handle="alberto")
-
-# print(person.last_name, person.password)
-
-# some_user=get_user(user_id=1)
+def get_waitlist():
+    return get_group_members(group_id=0)
 
 
-# create_group(members=[some_user])
+# for user in get_group_members(group_id=0):
+#     try:
+#         person = user.person
+#         print(f"Id:{person.id}, first name:{person.first_name}")
+#     except:
+#         print("User doesn't exist")
 
-some_group = get_group(group_id=8)
+CITIES = ['Cairo', 'Alexandria', 'Sinai','Luxor','Aswan','Sohag','Manofia','Asyut','Ismailia']
+LEVELS = ['A0', 'A1', 'A2', 'B1', 'B2', 'C1', 'C2']
 
-print(some_group.members[0].person.first_name, some_group.members[0].person.last_name)
+def get_city_id(city:str):
+    return 1+CITIES.index(city)
+
+def generate_cities_moderators(cities:list[str]):
+    for city in cities:
+        person = Person(
+            first_name=fake.first_name_female(),
+            last_name=fake.last_name(),
+            handle=fake.first_name(),
+            email=fake.email(),
+            age=fake.random_element([21,42,35]),
+            gender='famale',
+            phone_number=fake.phone_number(),
+            city=city,
+            is_admin=False,
+            password=fake.password(),
+            joining_date=fake.date_this_decade(),
+            last_login=fake.date_this_month()
+        )
+        person_id = person.id
+        create_person(person=person)
+        city_id=get_city_id(city=city)
+        city_group = Group(id=city_id)
+        create_moderator(person=person, group_id=city_id)
+        city_group.set_moderator(get_moderator(moderator_id=person_id))
+        create_group(group=city_group)
+        
+def generate_cities_persons(role:Person|User|Moderator, cities:list[str]=[]):
+    for city in cities:
+        person = Person(
+            first_name=fake.first_name_female(),
+            last_name=fake.last_name(),
+            handle=fake.first_name(),
+            email=fake.email(),
+            age=fake.random_element([21,42,35]),
+            gender='famale',
+            phone_number=fake.phone_number(),
+            city=city,
+            is_admin=False,
+            password=fake.password(),
+            joining_date=fake.date_this_decade(),
+            last_login=fake.date_this_month()
+        )
+        
+        person_id = person.id
+        create_person(person=person)
+        city_id=get_city_id(city=city)
+        print(f">>>>>>>>>>>>>> City ID = {city_id}")
+        try:
+            city_group = get_group(group_id=city_id)
+        except:
+            city_group = Group(id=city_id)
+            create_group(group=city_group)
+        city_group = get_group(group_id=city_id)
+        if role.__tablename__=="user_table":
+            create_user(person=person, level=fake.random_element(LEVELS))
+            print('****'*5)
+            new_user = get_user(user_id=person.id)
+            
+            city_group = get_group(group_id=city_id)
+            
+            try:
+                city_group.members.append(new_user)
+            except:
+                # stmt = update(Group)\
+                # .where(Group.id==city_id)\
+                # .values(members=[new_user])
+                
+                # session.execute(stmt)
+                city_group.set_members([new_user])
+                session.commit()
+                
+            new_user.group_id=city_id
+            session.commit()
+            
+        elif role.__tablename__=="moderator_table":
+            city_group = get_group(group_id=city_id)
+            create_moderator(person=person, group_id=city_id)
+            new_moderator = get_moderator(moderator_id=person_id)
+            city_group.set_moderator(new_moderator)
+            new_moderator.group_id=city_id
+            session.commit()
+        
+
+def initialize_groups():
+    for i in range(1, 1+len(CITIES)):
+        group = Group(i)
+        create_group(group=group)
+
+initialize_groups()
+
+for i in range(3):
+    generate_cities_persons(role=User, cities=CITIES)
+
+      
+generate_cities_persons(role=Moderator, cities=CITIES)
+
+
+
+# print(group.get_moderator().person.first_name)
