@@ -1,12 +1,14 @@
 import flask
 from flask import request
 from flask_mail import Mail,Message
+import flask_bcrypt as bc
 from model import User, Person
 from crud import get_user, create_person, create_user, match_user
 import crud
 from flask_login import LoginManager, login_user, logout_user, login_required, current_user
 from datetime import datetime as dt
 import secrets
+
 
 ## Generating secret key for the server, a new one is generated each time the server is restarted, and users are
 ## automatically logged-out
@@ -71,8 +73,8 @@ def login():
         except:
             return get_html('site/login')
         try:
-            stored_password = crud.get_person_by_handle(Table=User, handle=handle).password
-            if stored_password==password:    
+            stored_hashed_password = crud.get_person_by_handle(Table=User, handle=handle).hashed_password
+            if bc.check_password_hash(stored_hashed_password, password):    
                 login_user(user, remember=True)
                 print(current_user)
                 return app.redirect('/dashboard')
@@ -114,7 +116,7 @@ def create():
         phone_number=data['phone_number'],
         city=data['city'],
         is_admin=False,
-        password=data['password'],
+        hashed_password=bc.generate_password_hash(data['password']),
         joining_date=str(dt.now().strftime("%d/%m/%Y %H:%M:%S")),
         last_login=''
     )
@@ -153,7 +155,9 @@ def cards():
         members_json = {}
 
         for member in members:
-            members_json[member.person.handle]=member.as_dict()
+            member_as_value = member.as_dict()
+            member_as_value.pop('hashed_password')
+            members_json[member.person.handle]=member_as_value
         
         json_data = {**moderator_json, **members_json}
 

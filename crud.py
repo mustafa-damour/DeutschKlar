@@ -1,8 +1,11 @@
 from model import Base, Person, User, Moderator, Admin, Group, Email
 from sqlalchemy import create_engine, select, update, delete
 from sqlalchemy.orm import sessionmaker
+import flask_bcrypt as bc
 
 from logger import Logger
+
+logger = Logger()
 
 # library to get fake users/moderators
 from faker import Faker
@@ -15,12 +18,12 @@ Base.metadata.create_all(bind=engine)
 Session = sessionmaker(bind=engine)
 session = Session()
 
-# first_name, last_name, handle, email, age, gender, phone_number, city, is_admin, password, joining_date, last_login
+# first_name, last_name, handle, email, age, gender, phone_number, city, is_admin, hashed_password, joining_date, last_login
 def create_person(person):
     session.add(person)
     session.commit()
 
-# # first_name, last_name, handle, email, age, gender, phone_number, city, is_admin, password, joining_date, last_login
+# # first_name, last_name, handle, email, age, gender, phone_number, city, is_admin, hashed_password, joining_date, last_login
 # def create_person(*args, **kwargs):
 #     person = Person(*args)
 #     session.add(person)
@@ -121,9 +124,9 @@ def get_waitlist():
 # for user in get_group_members(group_id=0):
 #     try:
 #         person = user.person
-#         print(f"Id:{person.id}, first name:{person.first_name}")
+#         logger.log(f"Id:{person.id}, first name:{person.first_name}")
 #     except:
-#         print("User doesn't exist")
+#         logger.log("User doesn't exist")
 
 CITIES = ['Cairo', 'Alexandria', 'Sinai','Luxor','Aswan','Sohag','Manofia','Asyut','Ismailia']
 LEVELS = ['A0', 'A1', 'A2', 'B1', 'B2', 'C1', 'C2']
@@ -131,28 +134,6 @@ LEVELS = ['A0', 'A1', 'A2', 'B1', 'B2', 'C1', 'C2']
 def get_city_id(city:str):
     return 1+CITIES.index(city)
 
-def generate_cities_moderators(cities:list[str]):
-    for city in cities:
-        person = Person(
-            first_name=fake.first_name_female(),
-            last_name=fake.last_name(),
-            handle=fake.first_name(),
-            email=fake.email(),
-            age=fake.random_element([21,42,35]),
-            gender='famale',
-            phone_number=fake.phone_number(),
-            city=city,
-            is_admin=False,
-            password=fake.password(),
-            joining_date=fake.date_this_decade(),
-            last_login=fake.date_this_month()
-        )
-        create_person(person=person)
-        city_id=get_city_id(city=city)
-        city_group = Group(id=city_id)
-        create_moderator(person=person, group_id=city_id)
-        city_group.set_moderator(get_moderator(moderator_id=person.id))
-        create_group(group=city_group)
         
 def generate_cities_persons(role:Person|User|Moderator, cities:list[str]=[]):
     for city in cities:
@@ -166,14 +147,14 @@ def generate_cities_persons(role:Person|User|Moderator, cities:list[str]=[]):
             phone_number=fake.phone_number(),
             city=city,
             is_admin=False,
-            password=fake.password(),
+            hashed_password=fake.password(),
             joining_date=fake.date_this_decade(),
             last_login=fake.date_this_month()
         )
         
         create_person(person=person)
         city_id=get_city_id(city=city)
-        print(f">>>>>>>>>>>>>> Role = {role.__tablename__}, City ID = {city_id}")
+        logger.log(f">>>>>>>>>>>>>> Role = {role.__tablename__}, City ID = {city_id}")
         try:
             city_group = get_group(group_id=city_id)
         except:
@@ -229,10 +210,3 @@ def match_user(user: User):
     city_group = get_group(user.group_id)
     city_group.members.append(user)
     session.commit()
-    
-
-
-
-user = get_user(user_id=20)
-
-print(user.as_dict())
