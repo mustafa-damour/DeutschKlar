@@ -9,6 +9,7 @@ from flask_login import LoginManager, login_user, logout_user, login_required, c
 from datetime import datetime as dt
 import secrets
 from logger import Logger
+import json
 
 logger = Logger()
 
@@ -80,7 +81,7 @@ def inout():
 @app.route("/logs")
 @login_required
 def logs():
-    with app.context():
+    with app.app_context():
         user_id = current_user.id
         user = get_user(user_id=user_id)
         if user.person.is_admin:
@@ -89,6 +90,18 @@ def logs():
             return content
         else:
             return app.redirect('/dashboard')
+
+@app.route("/get_logs")
+@login_required
+def get_logs():
+    with app.app_context():
+        user_id = current_user.id
+        user = get_user(user_id=user_id)
+        if user.person.is_admin:
+            logs = logger.get_last_n_logs(20).split('\n');
+            return json.dumps(logs)
+        else:
+            return ""
 
 
 @app.route("/login", methods=['GET', 'POST'])

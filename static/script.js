@@ -62,8 +62,8 @@ function cardify(
       </div>
       <div class="contacts-container">
 
-        <span class="contact">${first_name} ${last_name}</span>
-        <span class="contact">${email}</span>
+        <p class="contact">full name ${first_name} ${last_name}</p>
+        <p class="contact"><a href="mailto:${email}">${email}</a></p>
       </div>
 `;
 
