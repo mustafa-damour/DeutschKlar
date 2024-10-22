@@ -77,10 +77,19 @@ def inout():
     else:
         return app.redirect('/login')
 
-@app.route("/admin")
-def about():
-    content = get_html('site/admin')
-    return content
+@app.route("/logs")
+@login_required
+def logs():
+    with app.context():
+        user_id = current_user.id
+        user = get_user(user_id=user_id)
+        if user.person.is_admin:
+            logger.log(f'Admin logged in')
+            content = get_html('site/admin/logs')
+            return content
+        else:
+            return app.redirect('/dashboard')
+
 
 @app.route("/login", methods=['GET', 'POST'])
 def login():
