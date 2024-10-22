@@ -109,20 +109,4 @@ class Group(Base):
     
     def set_members(self, members=list[User]):
         self.members=members
-    
-class Email(Base):
-    __tablename__ = "email_table"
-    
-    id: Mapped[int] = mapped_column(Integer, primary_key=True)
-    
-    first_name: Mapped[str] = mapped_column(String)
-    last_name: Mapped[str] = mapped_column(String)
-    email: Mapped[str] = mapped_column(String)
-    message: Mapped[str] = mapped_column(String)
-    date: Mapped[datetime] = mapped_column(TIMESTAMP, default=datetime.now())
-    
-    def __init__(self, first_name, last_name, email, message):
-        self.first_name = first_name
-        self.last_name = last_name
-        self.email = email
-        self.message = message
+
