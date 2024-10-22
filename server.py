@@ -3,16 +3,16 @@ from flask import request
 from flask_mail import Mail,Message
 import flask_bcrypt as bc
 from model import User, Person
-from crud import get_user, create_person, create_user, match_user
+from crud import get_user, create_person, create_user, match_user, update_user_lastlogin
 import crud
 from flask_login import LoginManager, login_user, logout_user, login_required, current_user
 from datetime import datetime as dt
 import secrets
-import os
+from logger import Logger
 
+logger = Logger()
 
-MAIL_PASSWORD = os.environ["MAIL_PASSWORD"]
-
+MAIL_PASSWORD = 'vfjy edir ovze eptu'
 
 ## Generating secret key for the server, a new one is generated each time the server is restarted, and users are
 ## automatically logged-out
@@ -77,6 +77,10 @@ def inout():
     else:
         return app.redirect('/login')
 
+@app.route("/admin")
+def about():
+    content = get_html('site/admin')
+    return content
 
 @app.route("/login", methods=['GET', 'POST'])
 def login():
@@ -92,7 +96,10 @@ def login():
             stored_hashed_password = crud.get_person_by_handle(Table=User, handle=handle).hashed_password
             if bc.check_password_hash(stored_hashed_password, password):    
                 login_user(user, remember=True)
-                print(current_user)
+                update_user_lastlogin(user)
+
+                logger.log(f'User with id=[{user.person.id}] logged in')
+
                 return app.redirect('/dashboard')
             else:
                 return get_html('site/login')
@@ -108,6 +115,11 @@ def login():
 
 @app.route("/logout")
 def logout():
+    if current_user.is_authenticated:
+        with app.app_context():
+            user_id = current_user.id
+            user = get_user(user_id=user_id)
+            logger.log(f'User with id=[{user.person.id}] logged out')
     logout_user()
     return app.redirect('/login')
 
@@ -133,14 +145,20 @@ def create():
         joining_date=str(dt.now().strftime("%d/%m/%Y %H:%M:%S")),
         last_login=''
     )
-    create_person(person)
-    create_user(person=person, level=data['level'])
-    user = get_user(person.id)
-    match_user(user=user)
-    
-    # print(person.phone_number)
-    email(title='Confirmation of Registeration', body='', html=reg_html, recipients=[data['email']])
-    return app.redirect('/login')
+    try:
+        create_person(person)
+        create_user(person=person, level=data['level'])
+        user = get_user(person.id)
+        logger.log(f'New User created, id=[{user.person.id}]')    
+        # print(person.phone_number)
+        email(title='Confirmation of Registeration', body='', html=reg_html, recipients=[data['email']])
+        
+        match_user(user=user)
+        email(title="Successful Matching", body="You've been successfully matched with a group, check your dashboard.", html='', recipients=[data['email']])
+            
+        return app.redirect('/login')
+    except:
+        return get_html('site/register')+'<script>alert("please change handle and/or emails");</script>'
 
 
 @app.route("/dashboard", methods=['GET'])

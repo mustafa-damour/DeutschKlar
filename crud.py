@@ -2,6 +2,7 @@ from model import Base, Person, User, Moderator, Admin, Group
 from sqlalchemy import create_engine, select, update, delete
 from sqlalchemy.orm import sessionmaker
 import flask_bcrypt as bc
+from datetime import datetime as dt
 
 from logger import Logger
 
@@ -199,15 +200,9 @@ def initialize_groups():
             create_group(group=group)
 
 
-
-# initialize_groups()
-
-# generate_cities_persons(role=Moderator, cities=CITIES)
-
-# for i in range(3):
-#     generate_cities_persons(role=User, cities=CITIES)
-
-
+def update_user_lastlogin(user:User):
+    user.person.last_login=dt.now().strftime("%m/%d/%Y, %H:%M:%S")
+    session.commit()
 
 
 def match_user(user: User):

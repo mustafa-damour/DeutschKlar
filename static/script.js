@@ -88,7 +88,25 @@ function injectUserCard(jsonObj) {
   // removing loader when cards are loaded
   let cardsLoader = document.getElementById("cards-loader");
   dashboard.removeChild(cardsLoader);
-  
+
+  // Moderator card
+
+  const cardHTML = cardify(
+    role='Moderator',
+    handle=moderator['handle'],
+    first_name=moderator['first_name'],
+    last_name=moderator['last_name'],
+    email=moderator['email']
+  );
+  let moderatorId = moderator['id']
+  let cardContainer = document.createElement("div");
+  cardContainer.className = "card-container";
+  cardContainer.id = `c-m${moderatorId}-${cardIdCount}`;
+  cardContainer.innerHTML = cardHTML;
+  dashboard.appendChild(cardContainer);
+  cardIdCount+=1;
+
+
   for (member in members){
 
     member = members[member];
@@ -96,7 +114,7 @@ function injectUserCard(jsonObj) {
     if (member['id']===user['user_id']){
       continue;
     }
-    const cardHTML = cardify(
+    let cardHTML = cardify(
       role='Member',
       handle=member['handle'],
       first_name=member['first_name'],

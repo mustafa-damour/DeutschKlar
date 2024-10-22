@@ -185,7 +185,7 @@ footer {
 }
 
 .cards-loader {
-    border: 12px solid #f3f3f3;
+    border: 12px solid white;
     border-radius: 50%;
     border-top: 12px solid teal;
     width: 64px;
