@@ -1,4 +1,4 @@
-from model import Base, Person, User, Moderator, Admin, Group, Email
+from model import Base, Person, User, Moderator, Admin, Group
 from sqlalchemy import create_engine, select, update, delete
 from sqlalchemy.orm import sessionmaker
 import flask_bcrypt as bc
@@ -160,7 +160,7 @@ def generate_cities_persons(role:Person|User|Moderator, cities:list[str]=[]):
         except:
             city_group = Group(id=city_id)
             create_group(group=city_group)
-        city_group = get_group(group_id=city_id)
+            city_group = get_group(group_id=city_id)
         if role.__tablename__=="user_table":
             create_user(person=person, level=fake.random_element(LEVELS))
             new_user = get_user(user_id=person.id)
@@ -192,8 +192,13 @@ def generate_cities_persons(role:Person|User|Moderator, cities:list[str]=[]):
 
 def initialize_groups():
     for i in range(1, 1+len(CITIES)):
-        group = Group(i)
-        create_group(group=group)
+        group=get_group(group_id=i)
+            
+        if not group:
+            group = Group(id=i)
+            create_group(group=group)
+
+
 
 # initialize_groups()
 
@@ -201,6 +206,7 @@ def initialize_groups():
 
 # for i in range(3):
 #     generate_cities_persons(role=User, cities=CITIES)
+
 
 
 

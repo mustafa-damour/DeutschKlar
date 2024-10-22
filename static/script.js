@@ -1,4 +1,3 @@
-log = console.log;
 
 function validateLoginForm() {
   let handle = document.forms["loginForm"]["handle"].value;
@@ -47,22 +46,15 @@ function validateRegForm() {
 
 }
 
-const data = {
-  uid: 238746,
-  cid: 2342,
-  role: "User",
-  handle: "marco",
-  name: "Mark Twain",
-  email: "marco123@aio.jp",
-};
 
-function injectUserCard() {
-  let cardId = data.cid;
-  let userId = data.uid;
-  let role = data.role;
-  let handle = data.handle;
-  let name = data.name;
-  let email = data.email;
+function cardify(
+  role,
+  handle,
+  first_name,
+  last_name,
+  email
+) {
+
   let inner = `
       <div class="card-header">
       <span class="role">${role}</span>
@@ -70,23 +62,88 @@ function injectUserCard() {
       </div>
       <div class="contacts-container">
 
-        <span class="contact">${name}</span>
+        <span class="contact">${first_name} ${last_name}</span>
         <span class="contact">${email}</span>
       </div>
 `;
-  let cardContainer = document.createElement("div");
-  cardContainer.className = "card-container";
-  cardContainer.id = `c-u${userId}-${cardId}`;
-  cardContainer.innerHTML = inner;
-  dashboard.appendChild(cardContainer);
+
+return inner;
 }
 
-function refresh() {
+let tHandle = '';
+
+function injectUserCard(jsonObj) {
+  let user = jsonObj['user'];
+  let moderator = jsonObj['moderator'];
+  let members = jsonObj['members'];
+  let cardIdCount = 0;
+  tHandle = user['handle'];
+  if(!(localStorage.getItem('suffix'))&&(user['handle'])){
+    localStorage.setItem('suffix', ` | @${tHandle}`);
+    sessionStorage.setItem('same', 'True');
+    document.title+=(localStorage.getItem('suffix'));
+
+  }
+
+  // removing loader when cards are loaded
+  let cardsLoader = document.getElementById("cards-loader");
+  dashboard.removeChild(cardsLoader);
+  
+  for (member in members){
+
+    member = members[member];
+
+    if (member['id']===user['user_id']){
+      continue;
+    }
+    const cardHTML = cardify(
+      role='Member',
+      handle=member['handle'],
+      first_name=member['first_name'],
+      last_name=member['last_name'],
+      email=member['email']
+    );
+    let userId = member['id']
+    let cardContainer = document.createElement("div");
+    cardContainer.className = "card-container";
+    cardContainer.id = `c-u${userId}-${cardIdCount}`;
+    cardContainer.innerHTML = cardHTML;
+    dashboard.appendChild(cardContainer);
+    cardIdCount+=1;
+  }
+
+  
+}
+
+function refresh(jsonObj) {
   const dashboard = document.getElementById("dashboard");
-  injectUserCard();
-  console.log("User card is allegedly inject into the dashboard");
+  injectUserCard(jsonObj);
 }
 
 window.onload = function () {
-  refresh();
-};
+  if(localStorage.getItem('suffix')){
+    document.title+=(localStorage.getItem('suffix'));
+  }
+
+  const loginLogoutButton = document.getElementById("login/logout");
+
+  loginLogoutButton.addEventListener('click', function(event){
+    // if value exists and user click, they are logging out
+    if(localStorage.getItem('suffix')){
+      localStorage.removeItem('suffix');
+    }
+    window.location.href('/in_out');
+  });
+
+  if (window.location.pathname==='/dashboard'){
+    const xmlhttp = new XMLHttpRequest();
+    xmlhttp.onload = function() {
+      const jsonObj = JSON.parse(this.responseText);
+      refresh(jsonObj);
+    }
+    xmlhttp.open("GET", "/cards", true);
+    xmlhttp.send();
+  }
+}
+
+

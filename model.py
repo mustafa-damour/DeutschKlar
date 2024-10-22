@@ -27,11 +27,11 @@ class Person(UserMixin, Base):
     is_admin: Mapped[bool] = mapped_column(Boolean)
     # is_admin: Mapped[bool] = mapped_column(Boolean, default=False)
     # is_moderator: Mapped[bool] = mapped_column(Boolean, default=False)
-    password: Mapped[str] = mapped_column(String)
+    hashed_password: Mapped[str] = mapped_column(String)
     joining_date: Mapped[str] = mapped_column(String)
     last_login: Mapped[str] = mapped_column(String)
     
-    def __init__(self, first_name, last_name, handle, email, age, gender, phone_number, city, is_admin, password, joining_date, last_login):
+    def __init__(self, first_name, last_name, handle, email, age, gender, phone_number, city, is_admin, hashed_password, joining_date, last_login):
         self.first_name = first_name
         self.last_name = last_name
         self.handle = handle
@@ -41,7 +41,7 @@ class Person(UserMixin, Base):
         self.phone_number = phone_number
         self.city = city
         self.is_admin = is_admin
-        self.password = password
+        self.hashed_password = hashed_password
         self.joining_date = joining_date
         self.last_login = last_login
         
@@ -78,6 +78,9 @@ class Moderator(UserMixin, Base):
     def __init__(self, moderator_id, group_id=0):
         self.id = moderator_id
         self.group_id = group_id
+        
+    def as_dict(self):
+        return {**self.person.as_dict(), **{col.name: getattr(self, col.name) for col in self.__table__.columns}}
 
 class Admin(UserMixin, Base):
     __tablename__ = "admin_table"

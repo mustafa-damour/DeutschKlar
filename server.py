@@ -8,6 +8,10 @@ import crud
 from flask_login import LoginManager, login_user, logout_user, login_required, current_user
 from datetime import datetime as dt
 import secrets
+import os
+
+
+MAIL_PASSWORD = os.environ["MAIL_PASSWORD"]
 
 
 ## Generating secret key for the server, a new one is generated each time the server is restarted, and users are
@@ -23,6 +27,8 @@ app.secret_key = secret_key
 # Creating an instance of the LoginManager, and connecting it to the app
 login_manager = LoginManager()
 login_manager.init_app(app)
+# setting login_view
+login_manager.login_view = 'login'
 
 
 # Basic configs to allow for Email service
@@ -33,7 +39,7 @@ app.config.update(
   MAIL_PORT=465,
   MAIL_USE_SSL=True,
   MAIL_USERNAME = 'DeutschKlar.rc',
-  MAIL_PASSWORD = 'vfjy edir ovze eptu'
+  MAIL_PASSWORD = MAIL_PASSWORD
 )
 
 mail = Mail(app)
@@ -57,9 +63,19 @@ def homepage():
 
 @app.route("/about")
 def about():
-    content = get_html('site/index')
+    content = get_html('site/about')
     return content
 
+@app.route("/faqs")
+def faqs():
+    return get_html('site/faqs')
+
+@app.route("/inout")
+def inout():
+    if current_user.is_authenticated:
+        return app.redirect('/logout')
+    else:
+        return app.redirect('/login')
 
 
 @app.route("/login", methods=['GET', 'POST'])
@@ -95,9 +111,6 @@ def logout():
     logout_user()
     return app.redirect('/login')
 
-@app.route("/group")
-def group():
-    return "group"
 
 @app.route("/register", methods=['GET'])
 def register():
@@ -129,10 +142,6 @@ def create():
     email(title='Confirmation of Registeration', body='', html=reg_html, recipients=[data['email']])
     return app.redirect('/login')
 
-@app.route("/message")
-@login_required
-def message():
-    return "message"
 
 @app.route("/dashboard", methods=['GET'])
 @login_required
@@ -148,18 +157,29 @@ def cards():
         user_group = user.group
         moderator = user_group.moderator
         members=user_group.members
-    
+        
+        user_json = {
+            'user':  {
+            'handle': user.person.handle,
+            'first_name': user.person.first_name,
+            'last_name': user.person.last_name,
+            'email': user.person.email,
+            'user_id': user.person.id
+            }
+        }
+        
         json_data = {}
         moderator_json={'moderator':moderator.as_dict()}
-
+        moderator_json['moderator'].pop('hashed_password')
         members_json = {}
+        members_json['members']={}
 
         for member in members:
             member_as_value = member.as_dict()
             member_as_value.pop('hashed_password')
-            members_json[member.person.handle]=member_as_value
+            members_json['members']={**members_json['members'], **{member.person.handle:member_as_value}}
         
-        json_data = {**moderator_json, **members_json}
+        json_data = {**user_json, **moderator_json, **members_json}
 
         return json_data
 
