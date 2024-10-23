@@ -103,6 +103,17 @@ def get_logs():
         else:
             return ""
 
+@app.route("/delete_logs")
+@login_required
+def delete_logs():
+    with app.app_context():
+        user_id = current_user.id
+        user = get_user(user_id=user_id)
+        if user.person.is_admin:
+            logger.clear_logs()
+            return app.redirect('/logs')
+        else:
+            return app.redirect('/dashboard')
 
 @app.route("/login", methods=['GET', 'POST'])
 def login():

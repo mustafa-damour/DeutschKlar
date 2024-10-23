@@ -33,13 +33,6 @@ class Logger:
     
     def clear_logs(self):
         f = open(self.log_path, 'w')
-        f.write("")
+        f.write("[Logs Deleted by Admin] ")
         f.close()
         
-    
-logger = Logger()
-
-logger.log("sfasdf")
-logger.log('sdfasdfafafff')
-
-logger.clear_logs()

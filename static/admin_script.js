@@ -1,6 +1,7 @@
 
 function injectLogs(jsonObj){
-  for (log in jsonObj){
+  let logsContainer = document.getElementById("logs-container");
+  for (log of jsonObj){
   let p = document.createElement('p');
   p.innerHTML=log;
   p.className='log';
@@ -10,7 +11,8 @@ function injectLogs(jsonObj){
 
 
 function inject(jsonObj) {
-  const logsContainer = document.getElementById("logs-container");
+  let logsContainer = document.getElementById("logs-container");
+
   injectLogs(jsonObj);
 }
 

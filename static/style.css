@@ -214,3 +214,20 @@ footer {
     0% { transform: rotate(0deg); }
     100% { transform: rotate(360deg); }
   }
+
+  .logs-container {
+    width: 50%;
+    height: 100vh;
+    border: 5px;
+    justify-content: center;
+  }
+
+  .log{
+    padding-left: 10px;
+    padding-right: 10px;
+  }
+
+  .delete-logs {
+    background-color: crimson;
+    color: white;
+  }
