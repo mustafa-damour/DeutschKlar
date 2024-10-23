@@ -80,14 +80,6 @@ class Moderator(UserMixin, Base):
     def as_dict(self):
         return {**self.person.as_dict(), **{col.name: getattr(self, col.name) for col in self.__table__.columns}}
 
-class Admin(UserMixin, Base):
-    __tablename__ = "admin_table"
-
-    id: Mapped[int] = mapped_column(ForeignKey("person_table.id"), primary_key=True)
-    title: Mapped[str] = mapped_column(String)
-    
-    person: Mapped["Person"] = relationship("Person", backref="admin")
-
 class Group(Base):
     __tablename__ = "group_table"
 

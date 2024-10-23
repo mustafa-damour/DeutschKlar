@@ -183,7 +183,6 @@ def create():
         create_user(person=person, level=data['level'])
         user = get_user(person.id)
         logger.log(f'New User created, id=[{user.person.id}]')    
-        # print(person.phone_number)
         email(title='Confirmation of Registeration', body='', html=reg_html, recipients=[data['email']])
         
         match_user(user=user)
@@ -253,5 +252,3 @@ def email(title: str, body:str, html: str, recipients: list[str]):
     except Exception as e:
         print(str(e))
     return ""
-
-# print(email("Confirmation of Registeration", "", reg_html,recipients=['damour91919@gmail.com']))
