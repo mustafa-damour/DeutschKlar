@@ -1,4 +1,4 @@
-
+// Injecting logs into DOM
 function injectLogs(jsonObj){
   let logsContainer = document.getElementById("logs-container");
   for (log of jsonObj){
@@ -9,13 +9,14 @@ function injectLogs(jsonObj){
   }
 }
 
-
+// Injecting jsonObj into 
 function inject(jsonObj) {
   let logsContainer = document.getElementById("logs-container");
 
   injectLogs(jsonObj);
 }
 
+// onload preparations
 window.onload = function () {
   
     const xmlhttp = new XMLHttpRequest();

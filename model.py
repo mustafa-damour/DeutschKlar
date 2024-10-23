@@ -1,9 +1,7 @@
 from __future__ import annotations
 from typing import List
 
-from datetime import datetime
-
-from sqlalchemy import ForeignKey, Integer, String, Boolean, TIMESTAMP
+from sqlalchemy import ForeignKey, Integer, String, Boolean
 from sqlalchemy.orm import Mapped, mapped_column, DeclarativeBase, relationship
 
 from flask_login import UserMixin
@@ -12,6 +10,8 @@ from flask_login import UserMixin
 class Base(DeclarativeBase):
     pass
 
+
+# Person Model
 class Person(UserMixin, Base):
     __tablename__ = "person_table"
 
@@ -45,7 +45,9 @@ class Person(UserMixin, Base):
         
     def as_dict(self):
         return {col.name: getattr(self, col.name) for col in self.__table__.columns}
-    
+ 
+ 
+ # User Model   
 class User(UserMixin, Base):
     __tablename__ = "user_table"
 
@@ -64,6 +66,7 @@ class User(UserMixin, Base):
     def as_dict(self):
         return {**self.person.as_dict(), **{col.name: getattr(self, col.name) for col in self.__table__.columns}}
 
+# Moderator Model
 class Moderator(UserMixin, Base):
     __tablename__ = "moderator_table"
 
@@ -80,6 +83,8 @@ class Moderator(UserMixin, Base):
     def as_dict(self):
         return {**self.person.as_dict(), **{col.name: getattr(self, col.name) for col in self.__table__.columns}}
 
+
+# Group Model
 class Group(Base):
     __tablename__ = "group_table"
 

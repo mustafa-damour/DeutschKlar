@@ -1,4 +1,5 @@
 
+// login form validation
 function validateLoginForm() {
   let handle = document.forms["loginForm"]["handle"].value;
   let password = document.forms["loginForm"]["password"].value;
@@ -12,6 +13,7 @@ function validateLoginForm() {
   }
 }
 
+// Registeration Form validation
 function validateRegForm() {
   let fname = document.forms["RegForm"]["fname"].value;
   let lname = document.forms["RegForm"]["lname"].value;
@@ -19,10 +21,7 @@ function validateRegForm() {
   let email = document.forms["RegForm"]["email"].value;
   let password = document.forms["RegForm"]["password"].value;
   let confirm_password = document.forms["RegForm"]["confirm_password"].value;
-  // let age = document.forms["RegForm"]["age"].value;
-  // let gender = document.forms["RegForm"]["gender"].value;
-  // let level = document.forms["RegForm"]["level"].value;
-  // let city = document.forms["RegForm"]["city"];
+
 
   if (fname.length < 3 || lname.length < 3) {
     alert("name must be at least 3 letters.");
@@ -46,7 +45,7 @@ function validateRegForm() {
 
 }
 
-
+// function to cardify contacts, turning them into card HTML templates
 function cardify(
   role,
   handle,
@@ -106,7 +105,7 @@ function injectUserCard(jsonObj) {
   dashboard.appendChild(cardContainer);
   cardIdCount+=1;
 
-
+  // Injecting members cards
   for (member in members){
 
     member = members[member];
@@ -133,6 +132,8 @@ function injectUserCard(jsonObj) {
   
 }
 
+// refreshing page by injecting fetched data
+
 function refresh(jsonObj) {
   const dashboard = document.getElementById("dashboard");
   injectUserCard(jsonObj);
@@ -152,6 +153,8 @@ window.onload = function () {
     }
     window.location.href('/in_out');
   });
+
+  // onload preparations
 
   if (window.location.pathname==='/dashboard'){
     const xmlhttp = new XMLHttpRequest();

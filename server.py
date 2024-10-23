@@ -43,6 +43,7 @@ app.config.update(
   MAIL_PASSWORD = MAIL_PASSWORD
 )
 
+#initiliazing Mail instance
 mail = Mail(app)
 
 # Email loader to allow for fetching user form DB
@@ -55,6 +56,9 @@ def get_html(file):
     f = open(f'{file}.html', encoding="utf8")
     content = f.read()
     return content
+
+
+### Flask routes
 
 @app.route("/")
 @app.route("/home")
@@ -146,7 +150,7 @@ def login():
         return get_html('site/login')
 
 
-
+# logout route
 @app.route("/logout")
 def logout():
     if current_user.is_authenticated:
@@ -160,11 +164,12 @@ def logout():
     logout_user()
     return app.redirect('/login')
 
-
+# registering route
 @app.route("/register", methods=['GET'])
 def register():
     return get_html('site/register')
 
+# create route
 @app.route("/create", methods=['POST'])
 def create():
     data = request.form.to_dict()
