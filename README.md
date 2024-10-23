@@ -34,7 +34,14 @@ via direct DB authorization, i.e. setting  is_admin to True in the DB
 The DB in the repo contain an admin, with credentials:
 
 
-In case of erasure of DB, a user has yo be promoted manually 
+In case of erasure of DB, a user has yo be promoted manually
+
+
+
+
+## Funny chronicle 
+
+when I created the footer, I loaded the html files and the server crashed, it turned to be an encoding problem, the problem was that :love: emoji needs a certain encoding, so we can say that Love crashed the system.
 
 
 
