@@ -19,6 +19,26 @@ or in Windows:
 
 ## purpose of mock_up.py
 
+to generate mock users and moderators if the db is released, this isn't a production feature.
+
+## How I satisfied the project's requirements:
+
+1.
+
+
+## Admins and logs page
+
+Admins has to be created as users first, then they are promoted by sys admin
+via direct DB authorization, i.e. setting  is_admin to True in the DB
+
+The DB in the repo contain an admin, with credentials:
+
+
+In case of erasure of DB, a user has yo be promoted manually 
+
+
+
+
 
 
 
