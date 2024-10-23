@@ -187,7 +187,7 @@ def create():
         email(title='Confirmation of Registeration', body='', html=reg_html, recipients=[data['email']])
         
         match_user(user=user)
-        email(title="Successful Matching", body="You've been successfully matched with a group, check your dashboard.", html='', recipients=[data['email']])
+        email(title="Successful Matching", body="""<h1>You've been successfully matched with a group, check your dashboard.</h1>""", html='', recipients=[data['email']])
             
         return app.redirect('/login')
     except:

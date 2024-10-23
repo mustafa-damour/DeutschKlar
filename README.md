@@ -26,6 +26,10 @@ to generate mock users and moderators if the db is released, this isn't a produc
 1.
 
 
+## Extra features
+
+
+
 ## Admins and logs page
 
 Admins has to be created as users first, then they are promoted by sys admin
