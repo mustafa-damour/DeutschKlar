@@ -1,4 +1,4 @@
-from model import Base, Person, User, Moderator, Admin, Group
+from model import Base, Person, User, Moderator, Group
 from sqlalchemy import create_engine, select, update, delete
 from sqlalchemy.orm import sessionmaker
 import flask_bcrypt as bc
@@ -19,7 +19,6 @@ Base.metadata.create_all(bind=engine)
 Session = sessionmaker(bind=engine)
 session = Session()
 
-# first_name, last_name, handle, email, age, gender, phone_number, city, is_admin, hashed_password, joining_date, last_login
 def create_person(person):
     session.add(person)
     session.commit()
@@ -53,7 +52,7 @@ def create_group(group:Group):
 
 
 
-def result_table_by_id(Table:User|Moderator|Admin, id_name:str, id_value:str):
+def result_table_by_id(Table:User|Moderator, id_name:str, id_value:str):
     if id_name == 'group_id':
         stmt = select(Table).where(Table.group_id==id_value)
     else:
@@ -61,7 +60,7 @@ def result_table_by_id(Table:User|Moderator|Admin, id_name:str, id_value:str):
     result = session.execute(stmt)
     return result.scalars()
 
-def get_person_by_handle(Table:User|Moderator|Admin, handle: str):
+def get_person_by_handle(Table:User|Moderator, handle: str):
 
     result = session.query(Person).join(Table).filter(Person.handle == handle)    
     return result.first()

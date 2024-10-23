@@ -85,7 +85,6 @@ def logs():
         user_id = current_user.id
         user = get_user(user_id=user_id)
         if user.person.is_admin:
-            logger.log(f'Admin logged in')
             content = get_html('site/admin/logs')
             return content
         else:
@@ -101,7 +100,7 @@ def get_logs():
             logs = logger.get_last_n_logs(20).split('\n');
             return json.dumps(logs)
         else:
-            return ""
+            return app.redirect('/dashboard')
 
 @app.route("/delete_logs")
 @login_required
@@ -130,8 +129,10 @@ def login():
             if bc.check_password_hash(stored_hashed_password, password):    
                 login_user(user, remember=True)
                 update_user_lastlogin(user)
-
-                logger.log(f'User with id=[{user.person.id}] logged in')
+                if user.person.is_admin:
+                    logger.log(f'Admin logged in')
+                else:
+                    logger.log(f'User with id=[{user.person.id}] logged in')
 
                 return app.redirect('/dashboard')
             else:
@@ -152,7 +153,10 @@ def logout():
         with app.app_context():
             user_id = current_user.id
             user = get_user(user_id=user_id)
-            logger.log(f'User with id=[{user.person.id}] logged out')
+            if user.person.is_admin:
+                logger.log(f'Admin logged out')
+            else:
+                logger.log(f'User with id=[{user.person.id}] logged out')
     logout_user()
     return app.redirect('/login')
 

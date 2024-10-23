@@ -1,5 +1,4 @@
-[Logs Deleted by Admin] Admin logged in 10/23/2024, 10:23:43.678246 
-User with id=[37] logged out 10/23/2024, 10:24:15.319690 
-New User created, id=[38] 10/23/2024, 10:26:44.124148 
-User with id=[38] logged in 10/23/2024, 10:27:19.144627 
-User with id=[38] logged in 10/23/2024, 10:50:57.679034 
+[Logs Deleted by Admin] User with id=[38] logged out 10/23/2024, 13:26:50.573548 
+Admin logged in 10/23/2024, 13:28:32.285263 
+User with id=[37] logged in 10/23/2024, 13:29:05.134382 
+User with id=[37] logged out 10/23/2024, 13:29:15.572792 

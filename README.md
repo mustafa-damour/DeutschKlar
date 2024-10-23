@@ -90,6 +90,10 @@ The DB in the repo contain an admin, with credentials:
 In case of erasure of DB, a user has yo be promoted manually
 
 
+## mock users 
+
+1. (mock user) handle=mock, password = 123123123
+2. (admin user) handle=admin, password = 456456456  
 
 
 ## Funny chronicle 
