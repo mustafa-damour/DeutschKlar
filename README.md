@@ -114,10 +114,3 @@ when I created the footer, I loaded the html files and the server crashed, it tu
 
 
 ![DeutschKlar logo](static/logo.PNG)
-
-
-
-
-
-
-
