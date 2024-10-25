@@ -3,7 +3,7 @@ from flask import request
 from flask_mail import Mail,Message
 import flask_bcrypt as bc
 from model import User, Person
-from crud import get_user, create_person, create_user, match_user, update_user_lastlogin
+from crud import get_user, create_person, create_user, match_user, update_user_lastlogin, session
 import crud
 from flask_login import LoginManager, login_user, logout_user, login_required, current_user
 from datetime import datetime as dt
@@ -71,6 +71,47 @@ def homepage():
 @login_required
 def edit():
     return get_html('site/edit')
+
+@app.route("/fields", methods=['GET'])
+@login_required
+def fields():
+    with app.app_context():
+        user_id = current_user.id
+        user:User = get_user(user_id=user_id)
+        
+        user_json = {
+            'first_name': user.person.first_name,
+            'last_name': user.person.last_name,
+            'phone_number': user.person.phone_number,
+            'age': user.person.age,
+            'level': user.level
+            }
+        
+        return user_json
+
+
+@app.route("/update", methods=['POST'])
+@login_required
+def update():
+
+    data = request.form.to_dict()
+    
+    
+    with app.app_context():
+        user_id = current_user.id
+        user:User = get_user(user_id=user_id)
+        
+        user.person.first_name=data['fname'];
+        user.person.last_name=data['lname'];
+        user.person.phone_number=data['phone_number'];
+        user.person.age=data['age'];
+        user.level=data['level'];
+        
+        session.commit()
+        
+        return app.redirect('/edit')
+
+
 
 # 
 @app.route("/profile")
@@ -156,6 +197,9 @@ def login():
         return get_html('site/login')
 
 
+
+
+
 # logout route
 @app.route("/logout")
 def logout():
@@ -194,6 +238,8 @@ def create():
         last_login=''
     )
     try:
+        reg_html = get_html('/mail/registeration_email')
+        match_html = get_html('/mail/matching_email')
         create_person(person)
         create_user(person=person, level=data['level'])
         user = get_user(person.id)
@@ -248,8 +294,6 @@ def cards():
 
         return json_data
 
-reg_html = get_html('mail/registeration_email')
-match_html = get_html('mail/matching_email')
 
 ## Email service
 def email(title: str, body:str, html: str, recipients: list[str]):

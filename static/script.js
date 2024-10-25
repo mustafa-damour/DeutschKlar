@@ -3,6 +3,7 @@ if (window.location.pathname==='/login'){
   localStorage.removeItem('suffix');
 }
 
+
 // login form validation
 function validateLoginForm() {
   let handle = document.forms["loginForm"]["handle"].value;
@@ -48,6 +49,19 @@ function validateRegForm() {
   }
 
 }
+
+
+function validateEditForm() {
+  let fname = document.forms["RegForm"]["fname"].value;
+  let lname = document.forms["RegForm"]["lname"].value;
+
+  if (fname.length < 3 || lname.length < 3) {
+    alert("name must be at least 3 letters.");
+    return false;
+  }
+
+}
+
 
 // function to cardify contacts, turning them into card HTML templates
 function cardify(
@@ -143,10 +157,20 @@ function refresh(jsonObj) {
   injectUserCard(jsonObj);
 }
 
+function setFields(jsonObj){
+  document.getElementById('edit-fname').value = jsonObj['first_name'];
+  document.getElementById('edit-lname').value = jsonObj['last_name'];
+  document.getElementById('edit-phone-number').value = jsonObj['phone_number'];
+  document.getElementById('edit-age').value = jsonObj['age'];
+  document.getElementById('edit-level').value = jsonObj['level'];
+  
+}
+
 window.onload = function () {
   if(localStorage.getItem('suffix')){
     document.title+=(localStorage.getItem('suffix'));
   }
+
 
   const loginLogoutButton = document.getElementById("login/logout");
 
@@ -170,6 +194,16 @@ window.onload = function () {
     xmlhttp.send();
   }
 
+  
+  if (window.location.pathname==='/edit'){
+    const xmlhttp = new XMLHttpRequest();
+    xmlhttp.onload = function() {
+      const jsonObj = JSON.parse(this.responseText);
+      setFields(jsonObj);
+    }
+    xmlhttp.open("GET", "/fields", true);
+    xmlhttp.send();
+  }
 
 }
 

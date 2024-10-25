@@ -128,9 +128,6 @@ header {
 .logo {
 
     scale: 50%;
-
-    /* flex: 1 1 10px;
-    object-fit:scale-down; */
 }
 
 h1 {
@@ -190,7 +187,7 @@ footer {
     align-items: center;
     margin-top: 12px;
     width: 100hv;
-    height: 10%;
+    min-height: 10em;
     background-color: teal;
     box-shadow: rgba(0, 0, 0, 0.15) 0px 0px 30px;
 }
@@ -228,8 +225,12 @@ footer {
   }
 
   .delete-logs {
+    margin: 12px;
+    width: 7em;
+    height: 3em;
     background-color: crimson;
     color: white;
+    border-radius: 8px;
   }
 
   .banner {
