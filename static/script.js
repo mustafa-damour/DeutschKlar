@@ -1,4 +1,8 @@
 
+if (window.location.pathname==='/login'){
+  localStorage.removeItem('suffix');
+}
+
 // login form validation
 function validateLoginForm() {
   let handle = document.forms["loginForm"]["handle"].value;
@@ -165,6 +169,8 @@ window.onload = function () {
     xmlhttp.open("GET", "/cards", true);
     xmlhttp.send();
   }
+
+
 }
 
 

@@ -1,0 +1,113 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Edit</title>
+    <script src="../static/script.js"></script>
+    <link rel="stylesheet" href="../static/style.css">
+</head>
+<body>
+    <header class="nav-header">
+        <a href="/home">
+            <img class="logo" src="../../static/logo.PNG">
+        </a>
+        <div class="space"></div>
+        <a class="nav-button" href="/home">Home</a>
+        <a id="login/logout" class="nav-button" href="/inout">login/logout</a>
+    </header>
+    <h1>Registration</h1>
+    <div class="container">
+        <div class="form-container">
+            <form id="RegForm" name="RegForm" action="/create" onsubmit="return validateRegForm()" method="post">
+                <div>
+                    <label for"fname"><b>First Name</b></label>
+                    <br>
+                    <input type="text" name="fname" placeholder="Enter your first name" required>
+                </div>
+                <div>
+                    <label for"lname"><b>Last Name</b></label>
+                    <br>
+                    <input type="text" name="lname" placeholder="Enter your last name" required>
+                </div>
+                <div>
+                    <label for"handle"><b> @handle </b></label>
+                    <br>
+                    <input type="text" name="handle" placeholder="Enter your handle" required>
+                </div>
+
+                <div>
+                    <label for"password"><b>Password  </b></label>
+                    <br>
+                    <input type="password" name="password" placeholder="Enter you passoword" required>
+                </div>
+                <div>
+                    <label for"password"><b>Type again</b></label>
+                    <br>
+                    <input type="password" name="confirm_password" placeholder="Enter you passoword again" required>
+                </div>
+                <div>
+                    <label for"email"><b> Email      </b></label>
+                    <br>
+                    <input type="text" name="email" placeholder="Enter your email, e.g. someone@example.com" required>
+                </div>
+                <div>
+                    <label for"phone_number"><b>  Phone Number  </b></label>
+                    <br>
+                    <input type="tel" name="phone_number" pattern="^[+]20-[0-9]{3}-[0-9]{3}-[0-9]{4}" placeholder="E.g. +20-123-456-7890" required>
+                </div>
+                
+                <div>
+                    <label for"age"><b>        Age        </b></label>
+                    <br>
+                    <input type="number" name="age" min=18 max=80 placeholder="Enter you age" equal required>
+                </div>
+                <div>
+                    <label for"gender"><b>     Gender     </b></label>
+                    <br>
+                        <select name="gender" required>
+                            <option value="male">male</option>
+                            <option value="female">female</option>
+                            <option value="unknown">prefer not to say</option>
+                        </select>
+                </div>
+                <div>
+                    <label for"level"><b> Language Level </b></label>
+                    <br>
+                        <select name="level" required>
+                            <option value="A0">A0</option>
+                            <option value="A1">A1</option>
+                            <option value="A2">A2</option>
+                            <option value="B1">B1</option>
+                            <option value="B2">B2</option>
+                            <option value="C1">C1</option>
+                            <option value="C2">C2</option>
+                        </select>
+                </div>
+                <div>
+                    <label for"city"><b>    Nearest City    </b></label>
+                    <br>
+                    <select name="city" required>
+                        <option value="Cairo">Cairo</option>
+                        <option value="Alexandria">Alexandria</option>
+                        <option value="Sinai">Sinai</option>
+                        <option value="Luxor">Luxor</option>
+                        <option value="Aswan">Aswan</option>
+                        <option value="Sohag">Sohag</option>
+                        <option value="Manofia">Manofia</option>
+                        <option value="Asyut">Asyut</option>
+                        <option value="Ismailia">Ismailia</option>
+                    </select>
+                    
+                </div>
+                <input type="submit" value="Submit">
+                
+            </form>
+        </div>
+    </div>
+
+    <footer>
+        <h2 class="credits">Created with ❤️ by <a href="https://github.com/mustafa-damour/">@mustafa-damour</a> </h2>
+    </footer>
+</body>
+</html>
