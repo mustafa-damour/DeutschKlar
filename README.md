@@ -1,55 +1,66 @@
 # DeutschKlar
-German Study Group Matching Platform
+German Study Group Matching Platform 
 
-#installation
+
+## Installation
+
 0. creat new directory and make it current directory using cd:
+
+        cd THE_DIRECTORY_YOU_CREATED
 
 1. setting a new python virtual (venv): environment, using the following command:
 
-    `python -m venv /path/to/new/virtual/environment`
+        python -m venv /path/to/new/virtual/environment
 
 or in windows
 
-    `python -m venv C:\path\to\new\virtual\environment`
+        python -m venv C:\path\to\new\virtual\environment
 2. clone the repo into the new directory
 
-    `git clone git@github.com:mustafa-damour/DeutschKlar.git`
+        git clone git@github.com:mustafa-damour/DeutschKlar.git
 3. activate venv using:
-Linux
+    Linux
 
-    `source venv/bin/activate`
+        source venv/bin/activate
 
-For Windows With CMD.
+    For Windows With CMD.
 
-    `.\venv\Scripts\activate.bat`
+        .\venv\Scripts\activate.bat
 
-For Windows With Power shell.
+    For Windows With Power shell.
 
-    `.\venv\Scripts\activate.ps1`
+        .\venv\Scripts\activate.ps1
 
-For Windows With Unix Like Shells For Example Git Bash CLI.
+    For Windows With Unix Like Shells For Example Git Bash CLI.
 
-    `source venv/Scripts/activate`
+        source venv/Scripts/activate
+
 
     if it venv doesn't work in Windows run the following command:
-    `Set-ExecutionPolicy RemoteSigned -Scope Process;`
+
+        Set-ExecutionPolicy RemoteSigned -Scope Process;
+
 
 4. install python libraries by running the following command in the project directory:
 
-    `pip install -r requirements.txt`
+        pip install -r requirements.txt
+
 
 5. run flask server using
-    `flask –app server run`
 
-or in Windows:
-    `flask --app server run`
+        flask –app server run
+
+
+    or in Windows:
+
+        flask --app server run
 
 
 ## purpose of mock_up.py
 
 to generate mock users and moderators if the db is deleted, this isn't a production feature.
 how to run it
-    `python mockup_injection.py`
+    python mockup_injection.py
 
 ## How I satisfied the project's requirements:
 
@@ -98,13 +109,11 @@ In case of erasure of DB, a user has yo be promoted manually
 
 ## Funny chronicle 
 
-when I created the footer, I loaded the html files and the server crashed, it turned to be an encoding problem, the problem was that :love: emoji needs a certain encoding, so we can say that Love crashed the system.
+when I created the footer, I loaded the html files and the server crashed, it turned to be an encoding problem, the problem was that ❤️ emoji needs a certain encoding, so we can say that Love crashed the system.
 
 
 
-
-
-
+![DeutschKlar logo](static/logo.PNG)
 
 
 
