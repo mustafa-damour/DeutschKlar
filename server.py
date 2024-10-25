@@ -66,14 +66,20 @@ def homepage():
     content = get_html('site/index')
     return content
 
-@app.route("/about")
-def about():
-    content = get_html('site/about')
-    return content
+# use edit page route
+@app.route("/edit")
+@login_required
+def edit():
+    return get_html('site/edit')
 
-@app.route("/faqs")
-def faqs():
-    return get_html('site/faqs')
+# 
+@app.route("/profile")
+@login_required
+def profile():
+    return get_html('site/profile')
+
+
+
 
 @app.route("/inout")
 def inout():
@@ -195,7 +201,7 @@ def create():
         email(title='Confirmation of Registeration', body='', html=reg_html, recipients=[data['email']])
         
         match_user(user=user)
-        email(title="Successful Matching", body="""<h1>You've been successfully matched with a group, check your dashboard.</h1>""", html='', recipients=[data['email']])
+        email(title="Successful Matching", body='', html=match_html, recipients=[data['email']])
             
         return app.redirect('/login')
     except:
@@ -242,8 +248,10 @@ def cards():
 
         return json_data
 
-reg_html = get_html('email')
+reg_html = get_html('mail/registeration_email')
+match_html = get_html('mail/matching_email')
 
+## Email service
 def email(title: str, body:str, html: str, recipients: list[str]):
   with app.app_context():
     try:
