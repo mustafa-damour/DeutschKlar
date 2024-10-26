@@ -231,4 +231,15 @@ window.onload = function () {
     xmlhttp.send();
   }
 
+
+  if (window.location.pathname==='/profile'){
+    const xmlhttp = new XMLHttpRequest();
+    xmlhttp.onload = function() {
+      const jsonObj = JSON.parse(this.responseText);
+      refresh(jsonObj);
+    }
+    xmlhttp.open("GET", "/user", true);
+    xmlhttp.send();
+  }
+
 }
