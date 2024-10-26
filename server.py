@@ -135,6 +135,28 @@ def update():
         session.commit()
         
         return app.redirect('/edit')
+    
+
+@app.route("/update_status", methods=['POST'])
+@login_required
+def update_status():
+    try:
+        data = request.form.to_dict()
+        
+        if data=='':
+            data='Hallo! Ich bin neu hier.'
+        
+        with app.app_context():
+            user_id = current_user.id
+            user:User = get_user(user_id=user_id)
+            user.person.status = data['status']
+            
+            session.commit()
+            
+            return app.redirect('/profile')
+        
+    except:
+        pass
 
 
 

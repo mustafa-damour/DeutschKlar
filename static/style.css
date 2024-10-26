@@ -421,3 +421,21 @@ footer {
     background-color: rgb(247, 246, 246);
     padding: 1ch;
 }
+
+.status-container {
+    display: flex;
+    align-items: center;
+}
+
+.status-p {
+    font-family: 'Times New Roman', Times, serif;
+    font-style: italic;
+    margin: 20px;
+    color: darkslategrey;
+    font-size: large;
+    /* border-top: 2px solid grey; */
+}
+
+.status-icon {
+    height: 26px;
+}
