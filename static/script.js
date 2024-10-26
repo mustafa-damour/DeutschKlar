@@ -1,7 +1,8 @@
 
 if (window.location.pathname==='/login'){
-  localStorage.removeItem('suffix');
+  localStorage.clear();
 }
+
 
 
 // login form validation
@@ -157,13 +158,25 @@ function refresh(jsonObj) {
   injectUserCard(jsonObj);
 }
 
+let ds={}
 function setFields(jsonObj){
   document.getElementById('edit-fname').value = jsonObj['first_name'];
   document.getElementById('edit-lname').value = jsonObj['last_name'];
   document.getElementById('edit-phone-number').value = jsonObj['phone_number'];
   document.getElementById('edit-age').value = jsonObj['age'];
   document.getElementById('edit-level').value = jsonObj['level'];
+
+  if(localStorage.hasOwnProperty('cached-fields')){
+    if (localStorage.getItem('cached-fields')!==JSON.stringify(jsonObj)){
+      alert('Info has been updated sucessfully.');
+      localStorage.setItem('cached-fields', JSON.stringify(jsonObj));
+    }
+  }
+  else{
+      localStorage.setItem('cached-fields', JSON.stringify(jsonObj));
+  }
   
+
 }
 
 window.onload = function () {
