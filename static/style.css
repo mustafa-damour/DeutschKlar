@@ -260,5 +260,43 @@ footer {
 
 .featured-img {
     height: 64px;
-    ;
+}
+
+.testimonials-container {
+    display: flex;
+    margin: auto;
+    width: 100%;
+    flex-direction: column;
+    padding: auto;
+    justify-content: space-between;
+    gap: 2em;
+}
+
+.testimonial {
+    margin: auto;
+    display: flex;
+    justify-content: center;
+    width: 60%;
+    box-shadow: rgba(0, 0, 0, 0.15) 0px 2px 8px;
+    /* gap: 4ch; */
+    border-radius: 10px;
+}
+
+.testimonial-details {
+    margin: 10px;
+}
+
+.testimonial-img {
+    margin: 20px;
+    height: 120px;
+}
+
+.testimonial-p {
+    margin: 20px;
+    font-size: 30px;
+}
+
+.testimonial-article {
+    margin: 20px;
+    font-size: 18px;
 }

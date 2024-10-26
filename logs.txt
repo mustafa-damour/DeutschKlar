@@ -20,3 +20,6 @@ User with id=[37] logged out 10/26/2024, 12:48:46.690275
 User with id=[37] logged in 10/26/2024, 12:48:52.725106 
 User with id=[37] logged out 10/26/2024, 12:49:10.543366 
 Admin logged in 10/26/2024, 12:49:22.997749 
+User with id=[37] logged in 10/26/2024, 15:43:52.712737 
+User with id=[37] logged out 10/26/2024, 15:43:56.786203 
+User with id=[37] logged in 10/26/2024, 15:52:12.440504 
