@@ -1,6 +1,7 @@
 
 if (window.location.pathname==='/login'){
   localStorage.clear();
+  document.getElementById('profile-nav').style.visibility='hidden';
 }
 
 
@@ -100,7 +101,7 @@ function injectUserCard(jsonObj) {
     localStorage.setItem('suffix', ` | @${tHandle}`);
     sessionStorage.setItem('same', 'True');
     document.title+=(localStorage.getItem('suffix'));
-
+    document.getElementById('profile-nav').style.visibility='visible';
   }
 
   // removing loader when cards are loaded
@@ -182,6 +183,7 @@ function setFields(jsonObj){
 window.onload = function () {
   if(localStorage.getItem('suffix')){
     document.title+=(localStorage.getItem('suffix'));
+    document.getElementById('profile-nav').style.visibility='visible';
   }
 
 
@@ -191,6 +193,7 @@ window.onload = function () {
     // if value exists and user click, they are logging out
     if(localStorage.getItem('suffix')){
       localStorage.removeItem('suffix');
+      document.getElementById('profile-nav').style.visibility='hidden';
     }
     window.location.href('/in_out');
   });
