@@ -259,6 +259,7 @@ footer {
     padding-left: 32px;
     padding-right: 10px;
     font-family: monospace;
+    font-size: large;
   }
 
   .delete-logs {
