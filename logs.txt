@@ -1,3 +1,46 @@
 [Logs Deleted by Admin] Admin logged out 10/26/2024, 18:39:48.246039 
 New User created, id=[39] 10/26/2024, 18:58:02.409834 
 User with id=[39] logged in 10/26/2024, 18:59:34.117657 
+User with id=[37] logged in 10/26/2024, 20:08:35.899250 
+>>>>>>>>>>>>>> Role = moderator_table, City ID = 1 10/26/2024, 20:15:57.440119 
+>>>>>>>>>>>>>> Role = moderator_table, City ID = 2 10/26/2024, 20:15:57.465074 
+>>>>>>>>>>>>>> Role = moderator_table, City ID = 3 10/26/2024, 20:15:57.483096 
+>>>>>>>>>>>>>> Role = moderator_table, City ID = 4 10/26/2024, 20:15:57.502441 
+>>>>>>>>>>>>>> Role = moderator_table, City ID = 5 10/26/2024, 20:15:57.520888 
+>>>>>>>>>>>>>> Role = moderator_table, City ID = 6 10/26/2024, 20:15:57.538713 
+>>>>>>>>>>>>>> Role = moderator_table, City ID = 7 10/26/2024, 20:15:57.558060 
+>>>>>>>>>>>>>> Role = moderator_table, City ID = 8 10/26/2024, 20:15:57.576271 
+>>>>>>>>>>>>>> Role = moderator_table, City ID = 9 10/26/2024, 20:15:57.594890 
+>>>>>>>>>>>>>> Role = user_table, City ID = 1 10/26/2024, 20:15:57.612477 
+>>>>>>>>>>>>>> Role = user_table, City ID = 2 10/26/2024, 20:15:57.640729 
+>>>>>>>>>>>>>> Role = user_table, City ID = 3 10/26/2024, 20:15:57.665275 
+>>>>>>>>>>>>>> Role = user_table, City ID = 4 10/26/2024, 20:15:57.688715 
+>>>>>>>>>>>>>> Role = user_table, City ID = 5 10/26/2024, 20:15:57.713128 
+>>>>>>>>>>>>>> Role = user_table, City ID = 6 10/26/2024, 20:15:57.738682 
+>>>>>>>>>>>>>> Role = user_table, City ID = 7 10/26/2024, 20:15:57.762125 
+>>>>>>>>>>>>>> Role = user_table, City ID = 8 10/26/2024, 20:15:57.785928 
+>>>>>>>>>>>>>> Role = user_table, City ID = 9 10/26/2024, 20:15:57.811334 
+>>>>>>>>>>>>>> Role = user_table, City ID = 1 10/26/2024, 20:15:57.835845 
+>>>>>>>>>>>>>> Role = user_table, City ID = 2 10/26/2024, 20:15:57.859441 
+>>>>>>>>>>>>>> Role = user_table, City ID = 3 10/26/2024, 20:15:57.887644 
+>>>>>>>>>>>>>> Role = user_table, City ID = 4 10/26/2024, 20:15:57.913247 
+>>>>>>>>>>>>>> Role = user_table, City ID = 5 10/26/2024, 20:15:57.937052 
+>>>>>>>>>>>>>> Role = user_table, City ID = 6 10/26/2024, 20:15:57.960571 
+>>>>>>>>>>>>>> Role = user_table, City ID = 7 10/26/2024, 20:15:57.983764 
+>>>>>>>>>>>>>> Role = user_table, City ID = 8 10/26/2024, 20:15:58.005635 
+>>>>>>>>>>>>>> Role = user_table, City ID = 9 10/26/2024, 20:15:58.027904 
+>>>>>>>>>>>>>> Role = user_table, City ID = 1 10/26/2024, 20:15:58.049920 
+>>>>>>>>>>>>>> Role = user_table, City ID = 2 10/26/2024, 20:15:58.073723 
+>>>>>>>>>>>>>> Role = user_table, City ID = 3 10/26/2024, 20:15:58.096314 
+>>>>>>>>>>>>>> Role = user_table, City ID = 4 10/26/2024, 20:15:58.118648 
+>>>>>>>>>>>>>> Role = user_table, City ID = 5 10/26/2024, 20:15:58.140566 
+>>>>>>>>>>>>>> Role = user_table, City ID = 6 10/26/2024, 20:15:58.162764 
+>>>>>>>>>>>>>> Role = user_table, City ID = 7 10/26/2024, 20:15:58.184309 
+>>>>>>>>>>>>>> Role = user_table, City ID = 8 10/26/2024, 20:15:58.207119 
+>>>>>>>>>>>>>> Role = user_table, City ID = 9 10/26/2024, 20:15:58.228917 
+New User created, id=[37] 10/26/2024, 20:17:11.649564 
+User with id=[37] logged in 10/26/2024, 20:18:27.420785 
+User with id=[37] logged out 10/26/2024, 20:36:11.085808 
+User with id=[37] logged in 10/26/2024, 20:36:24.018744 
+User with id=[37] logged out 10/26/2024, 20:44:38.372409 
+User with id=[37] logged in 10/26/2024, 20:47:27.046405 
