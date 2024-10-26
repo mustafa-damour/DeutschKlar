@@ -28,8 +28,9 @@ class Person(UserMixin, Base):
     hashed_password: Mapped[str] = mapped_column(String)
     joining_date: Mapped[str] = mapped_column(String)
     last_login: Mapped[str] = mapped_column(String)
+    status: Mapped[str] = mapped_column(String)
     
-    def __init__(self, first_name, last_name, handle, email, age, gender, phone_number, city, is_admin, hashed_password, joining_date, last_login):
+    def __init__(self, first_name, last_name, handle, email, age, gender, phone_number, city, is_admin, hashed_password, joining_date, last_login, status):
         self.first_name = first_name
         self.last_name = last_name
         self.handle = handle
@@ -42,6 +43,7 @@ class Person(UserMixin, Base):
         self.hashed_password = hashed_password
         self.joining_date = joining_date
         self.last_login = last_login
+        self.status = status
         
     def as_dict(self):
         return {col.name: getattr(self, col.name) for col in self.__table__.columns}

@@ -109,7 +109,8 @@ def generate_cities_persons(role:Person|User|Moderator, cities:list[str]=[]):
             is_admin=False,
             hashed_password=fake.password(),
             joining_date=fake.date_this_decade(),
-            last_login=fake.date_this_month()
+            last_login=fake.date_this_month(),
+            status='Hallo! Ich bin neu hier.'
         )
         
         create_person(person=person)
