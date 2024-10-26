@@ -1,27 +1,3 @@
-[Logs Deleted by Admin] User with id=[38] logged out 10/23/2024, 13:26:50.573548 
-Admin logged in 10/23/2024, 13:28:32.285263 
-User with id=[37] logged in 10/23/2024, 13:29:05.134382 
-User with id=[37] logged out 10/23/2024, 13:29:15.572792 
-User with id=[37] logged in 10/26/2024, 10:26:12.186774 
-User with id=[37] logged out 10/26/2024, 10:49:46.300782 
-User with id=[37] logged in 10/26/2024, 10:50:15.061413 
-User with id=[37] logged in 10/26/2024, 11:16:39.568976 
-User with id=[37] logged out 10/26/2024, 11:24:03.670870 
-User with id=[37] logged in 10/26/2024, 11:27:41.428760 
-User with id=[37] logged out 10/26/2024, 11:35:48.796506 
-User with id=[37] logged in 10/26/2024, 11:36:41.946159 
-User with id=[37] logged out 10/26/2024, 11:36:44.597755 
-User with id=[37] logged in 10/26/2024, 12:38:26.241749 
-User with id=[37] logged out 10/26/2024, 12:39:13.135234 
-User with id=[37] logged in 10/26/2024, 12:39:17.258756 
-User with id=[37] logged out 10/26/2024, 12:43:20.080981 
-User with id=[37] logged in 10/26/2024, 12:48:22.982862 
-User with id=[37] logged out 10/26/2024, 12:48:46.690275 
-User with id=[37] logged in 10/26/2024, 12:48:52.725106 
-User with id=[37] logged out 10/26/2024, 12:49:10.543366 
-Admin logged in 10/26/2024, 12:49:22.997749 
-User with id=[37] logged in 10/26/2024, 15:43:52.712737 
-User with id=[37] logged out 10/26/2024, 15:43:56.786203 
-User with id=[37] logged in 10/26/2024, 15:52:12.440504 
-User with id=[37] logged in 10/26/2024, 16:54:52.721120 
-User with id=[37] logged out 10/26/2024, 17:05:00.042927 
+[Logs Deleted by Admin] Admin logged out 10/26/2024, 18:39:48.246039 
+New User created, id=[39] 10/26/2024, 18:58:02.409834 
+User with id=[39] logged in 10/26/2024, 18:59:34.117657 

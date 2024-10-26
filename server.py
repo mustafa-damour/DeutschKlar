@@ -238,8 +238,8 @@ def create():
         last_login=''
     )
     try:
-        reg_html = get_html('/mail/registeration_email')
-        match_html = get_html('/mail/matching_email')
+        reg_html = get_html('mail/registeration_email')
+        match_html = get_html('mail/matching_email')
         create_person(person)
         create_user(person=person, level=data['level'])
         user = get_user(person.id)
@@ -250,7 +250,9 @@ def create():
         email(title="Successful Matching", body='', html=match_html, recipients=[data['email']])
             
         return app.redirect('/login')
-    except:
+    
+    except Exception as e:
+        print(e)
         return get_html('site/register')+'<script>alert("please change handle and/or emails");</script>'
 
 
