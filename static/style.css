@@ -124,12 +124,21 @@ select {
 }
 
 input[type=submit] {
-    margin: 12px;
-    width: 7em;
+    margin: 12px auto;
+    width: 20%;
     height: 3em;
     background-color: teal;
+    font-size: 14px;
+    font-weight: bold;
     color: white;
     border-radius: 8px;
+    border: none;
+    outline: none;
+    cursor: pointer;
+}
+
+input[type=submit]:hover {
+    background-color: rgb(0, 176, 176);
 }
 
 header {
@@ -312,4 +321,8 @@ footer {
 .testimonial-article {
     margin: 20px;
     font-size: 18px;
+}
+
+.github-link {
+    color: lightcoral;
 }
