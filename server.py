@@ -88,6 +88,31 @@ def fields():
             }
         
         return user_json
+    
+
+@app.route("/get_profile", methods=['GET'])
+@login_required
+def get_profile():
+    with app.app_context():
+        user_id = current_user.id
+        user:User = get_user(user_id=user_id)
+        
+        user_json = {
+            'first_name': user.person.first_name,
+            'last_name': user.person.last_name,
+            'handle':user.person.handle,
+            'email':user.person.email,
+            'phone_number': user.person.phone_number,
+            'gender': user.person.gender,
+            'city': user.person.city,
+            'age': user.person.age,
+            'joing_date': user.person.joining_date,
+            'last_login': user.person.last_login,
+            'level': user.level,
+            'status':user.person.status
+            }
+        
+        return user_json
 
 
 @app.route("/update", methods=['POST'])
@@ -235,7 +260,8 @@ def create():
         is_admin=False,
         hashed_password=bc.generate_password_hash(data['password']),
         joining_date=str(dt.now().strftime("%d/%m/%Y %H:%M:%S")),
-        last_login=''
+        last_login='',
+        status='Hallo! Ich bin neu hier.'
     )
     try:
         reg_html = get_html('mail/registeration_email')
