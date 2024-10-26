@@ -1,7 +1,6 @@
 
 if (window.location.pathname==='/login'){
   localStorage.clear();
-  document.getElementById('profile-nav').style.visibility='hidden';
 }
 
 
@@ -102,6 +101,8 @@ function injectUserCard(jsonObj) {
     sessionStorage.setItem('same', 'True');
     document.title+=(localStorage.getItem('suffix'));
     document.getElementById('profile-nav').style.visibility='visible';
+    document.getElementById('login-logout').innerText='logout ';
+
   }
 
   // removing loader when cards are loaded
@@ -181,9 +182,18 @@ function setFields(jsonObj){
 }
 
 window.onload = function () {
+
+  if (window.location.pathname==='/login'){
+    document.getElementById('profile-nav').style.visibility='hidden';
+    document.getElementById('login-logout').innerText='login';
+
+  }
+
   if(localStorage.getItem('suffix')){
     document.title+=(localStorage.getItem('suffix'));
     document.getElementById('profile-nav').style.visibility='visible';
+    document.getElementById('login-logout').innerText='logout';
+
   }
 
 
@@ -221,5 +231,3 @@ window.onload = function () {
   }
 
 }
-
-

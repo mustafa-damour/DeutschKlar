@@ -219,8 +219,9 @@ footer {
   }
 
   .log{
-    padding-left: 10px;
+    padding-left: 32px;
     padding-right: 10px;
+    font-family: monospace;
   }
 
   .delete-logs {
@@ -242,3 +243,7 @@ footer {
     margin: 2em;
     padding: 4em;
   }
+
+.nav-button:hover {
+    color: coral;
+}
