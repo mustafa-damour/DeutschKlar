@@ -112,5 +112,16 @@ In case of erasure of DB, a user has yo be promoted manually
 when I created the footer, I loaded the html files and the server crashed, it turned to be an encoding problem, the problem was that ❤️ emoji needs a certain encoding, so we can say that Love crashed the system.
 
 
+## Updates
+
+* Users can now:
+    1. Edit their profile.
+    2. Set/update and delete your status.
+    3. See your fellow group mates' status in dashboard.
+
+* Home page received many design improvements.
+
+* CSS has been improved.
+
 
 ![DeutschKlar logo](static/logo.PNG)
