@@ -8,3 +8,15 @@ User with id=[37] logged in 10/26/2024, 10:50:15.061413
 User with id=[37] logged in 10/26/2024, 11:16:39.568976 
 User with id=[37] logged out 10/26/2024, 11:24:03.670870 
 User with id=[37] logged in 10/26/2024, 11:27:41.428760 
+User with id=[37] logged out 10/26/2024, 11:35:48.796506 
+User with id=[37] logged in 10/26/2024, 11:36:41.946159 
+User with id=[37] logged out 10/26/2024, 11:36:44.597755 
+User with id=[37] logged in 10/26/2024, 12:38:26.241749 
+User with id=[37] logged out 10/26/2024, 12:39:13.135234 
+User with id=[37] logged in 10/26/2024, 12:39:17.258756 
+User with id=[37] logged out 10/26/2024, 12:43:20.080981 
+User with id=[37] logged in 10/26/2024, 12:48:22.982862 
+User with id=[37] logged out 10/26/2024, 12:48:46.690275 
+User with id=[37] logged in 10/26/2024, 12:48:52.725106 
+User with id=[37] logged out 10/26/2024, 12:49:10.543366 
+Admin logged in 10/26/2024, 12:49:22.997749 
