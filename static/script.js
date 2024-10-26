@@ -187,7 +187,7 @@ window.onload = function () {
   }
 
 
-  const loginLogoutButton = document.getElementById("login/logout");
+  const loginLogoutButton = document.getElementById("login-logout");
 
   loginLogoutButton.addEventListener('click', function(event){
     // if value exists and user click, they are logging out
