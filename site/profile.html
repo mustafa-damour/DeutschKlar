@@ -36,8 +36,18 @@
             <p class="profile-contact"> Gender | Male (fixed) </p>
             <p class="profile-contact"> Language Level | C1 </p>
             <p class="profile-contact"> City | Cairo (fixed)</p>
+
+            <a href="/edit"><button id="edit-profile" class="edit-profile">Edit</button></a>
+
+        <h2 class="status-title">Status</h2>
+        
+        <form class="status" action="/edit" method="post">
+            <textarea type="text" name="status" id="status" class="status-field"></textarea>
+                <input type="submit" value="Update">
+        </form>
         </div>
-        <a href="/edit"><button id="edit-profile" class="edit-profile">Edit</button></a>
+        
+
     </div>
 
     <footer>

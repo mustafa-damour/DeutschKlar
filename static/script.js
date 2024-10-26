@@ -161,7 +161,7 @@ function refresh(jsonObj) {
   injectUserCard(jsonObj);
 }
 
-let ds={}
+
 function setFields(jsonObj){
   document.getElementById('edit-fname').value = jsonObj['first_name'];
   document.getElementById('edit-lname').value = jsonObj['last_name'];
@@ -181,6 +181,48 @@ function setFields(jsonObj){
   
 
 }
+
+
+function injectProfile(jsonObj){
+
+  const profileContainer = document.getElementById('profile-container');
+
+  let cardsLoader = document.getElementById("cards-loader");
+  profileContainer.removeChild(cardsLoader);
+
+  
+
+  profileContainer.innerHTML = `
+  
+  <div id="cards-loader" class="cards-loader"></div>
+        <div id="profile-details" class="profile-details">
+            <img class="profile-pic" alt="Flag of Germany" src="static/germany-flag.jpg">
+            <p class="profile-contact"> Handle | @${} (fixed) </p>
+            <p class="profile-contact"> Name | ${} ${}</p>
+            <p class="profile-contact"> Email | ${} (fixed)</p>
+            <p class="profile-contact"> Phone Number | ${}</p>
+            <p class="profile-contact"> Age | ${} years old</p>
+            <p class="profile-contact"> Gender | ${} (fixed) </p>
+            <p class="profile-contact"> Language Level | ${} </p>
+            <p class="profile-contact"> City | ${} (fixed)</p>
+
+            <a href="/edit"><button id="edit-profile" class="edit-profile">Edit</button></a>
+
+        <h2 class="status-title">Status</h2>
+        
+        <form class="status" action="/edit" method="post">
+            <textarea type="text" name="status" id="status" class="status-field">${}</textarea>
+                <input type="submit" value="Update">
+        </form>
+        </div>
+  
+  `;
+
+
+}
+
+
+
 
 window.onload = function () {
 
@@ -236,9 +278,9 @@ window.onload = function () {
     const xmlhttp = new XMLHttpRequest();
     xmlhttp.onload = function() {
       const jsonObj = JSON.parse(this.responseText);
-      refresh(jsonObj);
+      injectProfile(jsonObj);
     }
-    xmlhttp.open("GET", "/user", true);
+    xmlhttp.open("GET", "/get_profile", true);
     xmlhttp.send();
   }
 
