@@ -71,7 +71,8 @@ function cardify(
   handle,
   first_name,
   last_name,
-  email
+  email,
+  statusText
 ) {
 
   let inner = `
@@ -83,6 +84,11 @@ function cardify(
 
         <p class="contact">full name ${first_name} ${last_name}</p>
         <p class="contact"><a href="mailto:${email}">${email}</a></p>
+        <div class="status-container">
+          <img class="status-icon"src="static/status.svg">
+          <p class="status-p">${statusText}</p>
+        </div>
+        
       </div>
 `;
 
@@ -117,7 +123,8 @@ function injectUserCard(jsonObj) {
     handle=moderator['handle'],
     first_name=moderator['first_name'],
     last_name=moderator['last_name'],
-    email=moderator['email']
+    email=moderator['email'],
+    statusText=moderator['status']
   );
   let moderatorId = moderator['id']
   let cardContainer = document.createElement("div");
@@ -140,7 +147,8 @@ function injectUserCard(jsonObj) {
       handle=member['handle'],
       first_name=member['first_name'],
       last_name=member['last_name'],
-      email=member['email']
+      email=member['email'],
+      statusText=member['status']
     );
     let userId = member['id']
     let cardContainer = document.createElement("div");
@@ -187,31 +195,37 @@ function injectProfile(jsonObj){
 
   const profileContainer = document.getElementById('profile-container');
 
-  let cardsLoader = document.getElementById("cards-loader");
-  profileContainer.removeChild(cardsLoader);
+  let handle = jsonObj['handle'];
+  let fname = jsonObj['first_name'];
+  let lname = jsonObj['last_name'];
+  let email = jsonObj['email'];
+  let phone_number = jsonObj['phone_number'];
+  let age = jsonObj['age'];
+  let gender = jsonObj['gender'];
+  let level = jsonObj['level'];
+  let city = jsonObj['city'];
+  let status = jsonObj['status'];
 
-  
 
   profileContainer.innerHTML = `
   
-  <div id="cards-loader" class="cards-loader"></div>
         <div id="profile-details" class="profile-details">
             <img class="profile-pic" alt="Flag of Germany" src="static/germany-flag.jpg">
-            <p class="profile-contact"> Handle | @${} (fixed) </p>
-            <p class="profile-contact"> Name | ${} ${}</p>
-            <p class="profile-contact"> Email | ${} (fixed)</p>
-            <p class="profile-contact"> Phone Number | ${}</p>
-            <p class="profile-contact"> Age | ${} years old</p>
-            <p class="profile-contact"> Gender | ${} (fixed) </p>
-            <p class="profile-contact"> Language Level | ${} </p>
-            <p class="profile-contact"> City | ${} (fixed)</p>
+            <p class="profile-contact"> Handle | @${handle} (fixed) </p>
+            <p class="profile-contact"> Name | ${fname} ${lname}</p>
+            <p class="profile-contact"> Email | ${email} (fixed)</p>
+            <p class="profile-contact"> Phone Number | ${phone_number}</p>
+            <p class="profile-contact"> Age | ${age} years old</p>
+            <p class="profile-contact"> Gender | ${gender} (fixed) </p>
+            <p class="profile-contact"> Language Level | ${level} </p>
+            <p class="profile-contact"> City | ${city} (fixed)</p>
 
             <a href="/edit"><button id="edit-profile" class="edit-profile">Edit</button></a>
 
         <h2 class="status-title">Status</h2>
         
-        <form class="status" action="/edit" method="post">
-            <textarea type="text" name="status" id="status" class="status-field">${}</textarea>
+        <form class="status" action="/update_status" method="post">
+            <textarea type="text" name="status" id="status" class="status-field">${status}</textarea>
                 <input type="submit" value="Update">
         </form>
         </div>
