@@ -145,7 +145,7 @@ label {
 }
 
 .space {
-    width: 15%;
+    width: 32%;
 }
 
 .nav-button {
@@ -173,7 +173,7 @@ nav {
 
 .nav-header {
     display: flex;
-    justify-content: space-between;
+    justify-content: center;
     width: 100%;
     background: rgba(245, 245, 245, 0.72);
     box-shadow: rgba(0, 0, 0, 0.15) 0px 14px 9px;
