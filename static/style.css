@@ -131,8 +131,8 @@ header {
 }
 
 h1 {
-        font-size: 40px;
-        font-family: monospace;
+        font-size: 50px;
+        font-family:'Franklin Gothic Medium', 'Arial Narrow', Arial, sans-serif;
         display: flex;
         color: teal;
         justify-content: center;
@@ -246,4 +246,19 @@ footer {
 
 .nav-button:hover {
     color: coral;
+}
+
+.featured-container {
+    display: flex;
+    width: auto;
+    padding-left: 10%;
+    padding-right: 10%;
+    padding-top: 4%;
+    padding-bottom: 4%;
+    justify-content: space-between;
+}
+
+.featured-img {
+    height: 64px;
+    ;
 }
