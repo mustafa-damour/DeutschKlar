@@ -193,7 +193,6 @@ window.onload = function () {
     // if value exists and user click, they are logging out
     if(localStorage.getItem('suffix')){
       localStorage.removeItem('suffix');
-      document.getElementById('profile-nav').style.visibility='hidden';
     }
     window.location.href('/in_out');
   });
